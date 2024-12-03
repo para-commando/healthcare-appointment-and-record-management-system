@@ -21,36 +21,6 @@ namespace clinical_data_grid.database.migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("MedicineBenefits", b =>
-                {
-                    b.Property<int>("MedicineId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("BenefitId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("MedicineId", "BenefitId");
-
-                    b.HasIndex("BenefitId");
-
-                    b.ToTable("MedicineBenefits", (string)null);
-                });
-
-            modelBuilder.Entity("MedicineSideEffects", b =>
-                {
-                    b.Property<int>("MedicineId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SideEffectId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("MedicineId", "SideEffectId");
-
-                    b.HasIndex("SideEffectId");
-
-                    b.ToTable("MedicineSideEffects", (string)null);
-                });
-
             modelBuilder.Entity("database.models.MedicalSideEffects", b =>
                 {
                     b.Property<int>("id")
@@ -117,7 +87,37 @@ namespace clinical_data_grid.database.migrations
                     b.ToTable("medicines", (string)null);
                 });
 
-            modelBuilder.Entity("MedicineBenefits", b =>
+            modelBuilder.Entity("medicine_benefits_join", b =>
+                {
+                    b.Property<int>("MedicineId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("BenefitId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("MedicineId", "BenefitId");
+
+                    b.HasIndex("BenefitId");
+
+                    b.ToTable("medicine_benefits_join", (string)null);
+                });
+
+            modelBuilder.Entity("medicine_sideEffects_join", b =>
+                {
+                    b.Property<int>("MedicineId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SideEffectId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("MedicineId", "SideEffectId");
+
+                    b.HasIndex("SideEffectId");
+
+                    b.ToTable("medicine_sideEffects_join", (string)null);
+                });
+
+            modelBuilder.Entity("medicine_benefits_join", b =>
                 {
                     b.HasOne("database.models.MedicineBenefits", null)
                         .WithMany()
@@ -132,7 +132,7 @@ namespace clinical_data_grid.database.migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MedicineSideEffects", b =>
+            modelBuilder.Entity("medicine_sideEffects_join", b =>
                 {
                     b.HasOne("database.models.Medicines", null)
                         .WithMany()

@@ -52,7 +52,7 @@ namespace clinical_data_grid.database.migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MedicineBenefits",
+                name: "medicine_benefits_join",
                 columns: table => new
                 {
                     MedicineId = table.Column<int>(type: "integer", nullable: false),
@@ -60,15 +60,15 @@ namespace clinical_data_grid.database.migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MedicineBenefits", x => new { x.MedicineId, x.BenefitId });
+                    table.PrimaryKey("PK_medicine_benefits_join", x => new { x.MedicineId, x.BenefitId });
                     table.ForeignKey(
-                        name: "FK_MedicineBenefits_medicine_benefits_BenefitId",
+                        name: "FK_medicine_benefits_join_medicine_benefits_BenefitId",
                         column: x => x.BenefitId,
                         principalTable: "medicine_benefits",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MedicineBenefits_medicines_MedicineId",
+                        name: "FK_medicine_benefits_join_medicines_MedicineId",
                         column: x => x.MedicineId,
                         principalTable: "medicines",
                         principalColumn: "id",
@@ -76,7 +76,7 @@ namespace clinical_data_grid.database.migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MedicineSideEffects",
+                name: "medicine_sideEffects_join",
                 columns: table => new
                 {
                     MedicineId = table.Column<int>(type: "integer", nullable: false),
@@ -84,15 +84,15 @@ namespace clinical_data_grid.database.migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MedicineSideEffects", x => new { x.MedicineId, x.SideEffectId });
+                    table.PrimaryKey("PK_medicine_sideEffects_join", x => new { x.MedicineId, x.SideEffectId });
                     table.ForeignKey(
-                        name: "FK_MedicineSideEffects_medical_side_effects_SideEffectId",
+                        name: "FK_medicine_sideEffects_join_medical_side_effects_SideEffectId",
                         column: x => x.SideEffectId,
                         principalTable: "medical_side_effects",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MedicineSideEffects_medicines_MedicineId",
+                        name: "FK_medicine_sideEffects_join_medicines_MedicineId",
                         column: x => x.MedicineId,
                         principalTable: "medicines",
                         principalColumn: "id",
@@ -100,13 +100,13 @@ namespace clinical_data_grid.database.migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_MedicineBenefits_BenefitId",
-                table: "MedicineBenefits",
+                name: "IX_medicine_benefits_join_BenefitId",
+                table: "medicine_benefits_join",
                 column: "BenefitId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MedicineSideEffects_SideEffectId",
-                table: "MedicineSideEffects",
+                name: "IX_medicine_sideEffects_join_SideEffectId",
+                table: "medicine_sideEffects_join",
                 column: "SideEffectId");
         }
 
@@ -114,10 +114,10 @@ namespace clinical_data_grid.database.migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "MedicineBenefits");
+                name: "medicine_benefits_join");
 
             migrationBuilder.DropTable(
-                name: "MedicineSideEffects");
+                name: "medicine_sideEffects_join");
 
             migrationBuilder.DropTable(
                 name: "medicine_benefits");

@@ -4,8 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema; // For database-specific ann
 [Table("medicines")]
 public class Medicines
 {
-    private int[]? _benefitsList;
-    private int[]? _sideEffectsList;
 
     [Key]
     [Column("id")]
@@ -20,7 +18,9 @@ public class Medicines
     [Column("details")]
     public required string details { get; set; } = string.Empty;
 
+    // represents many side of a many to many relationship
     public ICollection<MedicineBenefits> MedicineBenefits { get; set; } = new List<MedicineBenefits>();
+    // represents many side of a many to many relationship
     public ICollection<MedicalSideEffects> MedicalSideEffects { get; set; } = new List<MedicalSideEffects>();
 
 }
