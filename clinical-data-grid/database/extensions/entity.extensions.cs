@@ -7,6 +7,8 @@ namespace database.extensions
   {
     public static ModelBuilder medicineEntityExt(this ModelBuilder modelBuilder)
     {
+
+      // this is fluent api use case implementation and is higher in precedence compared to data annotations
       modelBuilder.Entity<Medicines>(entity =>
            {
              entity.ToTable("medicines"); // Map to table name in the database
@@ -23,7 +25,7 @@ namespace database.extensions
              entity.HasMany(m => m.MedicineBenefits)
           .WithMany(b => b.Medicines)
           .UsingEntity<Dictionary<string, object>>(
-              "MedicineBenefits", // Name of the join table
+              "medicine_benefits_join", // Name of the join table
               j => j.HasOne<MedicineBenefits>().WithMany().HasForeignKey("BenefitId"),
 
               j => j.HasOne<Medicines>().WithMany().HasForeignKey("MedicineId"),
@@ -31,19 +33,19 @@ namespace database.extensions
                j =>
               {
                 j.HasKey("MedicineId", "BenefitId"); // Composite key
-                j.ToTable("MedicineBenefits");
+                j.ToTable("medicine_benefits_join");
               });
              entity.HasMany(m => m.MedicalSideEffects)
                       .WithMany(b => b.Medicines)
                       .UsingEntity<Dictionary<string, object>>(
-                          "MedicineSideEffects", // Name of the join table
+                          "medicine_sideEffects_join", // Name of the join table
                             j => j.HasOne<MedicalSideEffects>().WithMany().HasForeignKey("SideEffectId"),
                           j => j.HasOne<Medicines>().WithMany().HasForeignKey("MedicineId"),
 
                            j =>
                           {
                             j.HasKey("MedicineId", "SideEffectId"); // Composite key
-                            j.ToTable("MedicineSideEffects");
+                            j.ToTable("medicine_sideEffects_join");
                           });
 
 
