@@ -15,6 +15,11 @@ public class postgresHealthCareDbContext : DbContext
     public DbSet<MedicineBenefits> MedicineBenefits { get; set; }
 
     public DbSet<MedicalSideEffects> MedicalSideEffects { get; set; }
+    public DbSet<Diseases> Diseases { get; set; }
+    public DbSet<Symptoms> Symptoms { get; set; }
+    public DbSet<PrescriptionTemplate> PrescriptionTemplate { get; set; }
+
+
     // Log successful database connection
     public bool TestConnection()
     {
@@ -42,6 +47,7 @@ public class postgresHealthCareDbContext : DbContext
         modelBuilder.medicineEntityExt();
         modelBuilder.medicineBenefitsEntityExt();
         modelBuilder.medicineSideEffectsEntityExt();
+        modelBuilder.diseasesEntityExt();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

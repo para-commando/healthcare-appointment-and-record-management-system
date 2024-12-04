@@ -17,6 +17,7 @@ public class Medicines
     [MaxLength(255)] // Limits the length of the name
     [Column("details")]
     public required string details { get; set; } = string.Empty;
+    public ICollection<Diseases> Diseases { get; set; } = new List<Diseases>();
 
     // represents many side of a many to many relationship
     public ICollection<MedicineBenefits> MedicineBenefits { get; set; } = new List<MedicineBenefits>();
