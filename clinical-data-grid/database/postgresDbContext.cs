@@ -18,6 +18,7 @@ public class postgresHealthCareDbContext : DbContext
     public DbSet<Diseases> Diseases { get; set; }
     public DbSet<Symptoms> Symptoms { get; set; }
     public DbSet<PrescriptionTemplate> PrescriptionTemplate { get; set; }
+    public DbSet<ClinicalHealthStaticData> ClinicalHealthStaticData { get; set; }
 
 
     // Log successful database connection
