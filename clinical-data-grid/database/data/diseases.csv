@@ -1,0 +1,914 @@
+id,name
+1,Cancer of colon and rectum Non-small cell lung cancer Kidney cancer Brain tumor Ovarian cancer Cervical cancer
+2,Bacterial infections
+3,Cough with mucus
+4,Gastroesophageal reflux disease (Acid reflux)
+5,Peptic ulcer disease
+6,Sneezing and runny nose due to allergies
+7,Allergic conditions
+8,Allergic conditions
+9,Respiratory disease with excessive mucus
+10,Skin conditions with inflammation & itching
+11,Meniere's disease
+12,Alzheimer's disease
+13,Anxiety
+14,Skin conditions with inflammation & itching
+15,Piles
+16,Sneezing and runny nose due to allergies
+17,Dry cough
+18,Breast cancer
+19,Resistance Tuberculosis (TB)
+20,Bacterial infections
+21,Parasitic infections
+22,Hypertension (high blood pressure)
+23,Pain relief
+24,Hypertension (high blood pressure) Edema Low potassium Heart failure
+25,Allergic eye disease
+26,Abdominal pain
+27,Cough
+28,Chronic obstructive pulmonary disease (COPD)
+29,Asthma
+30,heart attack and stroke
+31,Vitamin D deficiency
+32,Osteoporosis
+33,Benign prostatic hyperplasia
+34,Vitamin A deficiency
+35,Anal fissure
+36,Resistant Tuberculosis (TB)
+37,Bacterial infections
+38,Syndromic treatment of vaginal discharge
+39,Appetite stimulant
+40,Asthma
+41,Bronchitis
+42,Chronic obstructive pulmonary disease (COPD)
+43,Acne
+44,Depression Neuropathic pain
+45,Migraine
+46,Respiratory tract disorders associated with viscid mucus
+47,Chronic obstructive pulmonary disease (COPD)
+48,Acute Sore throat
+49,Cough with mucus
+50,High cholesterol (
+51,Heart attack)
+52,Functional dyspepsia
+53,Angina (heart-related chest pain)
+54,Bacterial eye infections
+55,Herpes Simplex Virus Infections Chickenpox Herpes labialis Shingles Genital herpes infection
+56,Herpes labialis
+57,Blood clots
+58,Allergic conditions
+59,Bacterial eye / ear infections
+60,Eye infection with inflammation
+61,Edema
+62,Type 2 diabetes mellitus
+63,Dry eyes
+64,Muscular pain
+65,Pain relief Fever
+66,Asthma
+67,Influenza (flu)
+68,Heart failure
+69,Varicose veins
+70,Hypertension (high blood pressure)
+71,Angina (heart-related chest pain)
+72,Fungal infections
+73,Heart attack prevention and high cholesterol
+74,Acne Acute promyelocytic leukaemia
+75,Parkinson's disease
+76,Hypertension (high blood pressure)
+77,Edema
+78,Gout
+79,Kidney stone
+80,Diarrhea
+81,Mouth ulcers
+82,Hypertension (high blood pressure)
+83,Angina (heart-related chest pain)
+84,Arrhythmia
+85,Heart attack
+86,Common cold
+87,Hypertension (high blood pressure)
+88,Angina (heart-related chest pain)
+89,Heart attack
+90,Stroke
+91,Fungal skin infections
+92,Schizophrenia Mania
+93,Neuropathic pain
+94,Erectile dysfunction
+95,Abdominal cramp
+96,Plaque psoriasis
+97,Primary biliary cirrhosis
+98,Gallbladder stones
+99,Diabetes
+100,Fatigue Alzheimer's disease
+101,Osteoporosis
+102,Skin conditions with inflammation & itching
+103,Alcohol addiction
+104,Post-operative eye pain and inflammation
+105,Allergic conjunctivitis
+106,High cholesterol
+107,Sneezing and runny nose due to allergies
+108,Hay fever
+109,Allergic skin conditions
+110,Myopia
+111,Uveitis
+112,Male hypogonadism
+113,Vitamin D deficiency
+114,Diarrhea Dysentery
+115,Fungal nail infections
+116,Vertigo
+117,Nausea
+118,Vomiting
+119,Migraine
+120,Short term anxiety
+121,Cough with mucus
+122,Acute Sore throat
+123,Respiratory tract disorders associated with viscid mucus
+124,Pertussis
+125,Diphtheria
+126,Bacterial infections
+127,Short term fluid replacement after trauma
+128,Schizophrenia Depression Bipolar disorder
+129,Nausea and vomiting in pregnancy
+130,Menstrual pain
+131,Abdominal cramp
+132,Nausea and vomiting due to chemotherapy
+133,Hair loss
+134,Glaucoma Ocular hypertension
+135,Worm infections Intestinal amoebiasis
+136,organ rejection in transplant patients
+137,Rheumatoid arthritis
+138,Insomnia
+139,Jet lag
+140,Acidity Heartburn Anxiety
+141,Heart attack
+142,Psoriasis
+143,Anemia due to chronic kidney disease
+144,Anemia due to cancer chemotherapy
+145,Chronic obstructive pulmonary disease (COPD) General Anaesthesia Peptic ulcer disease
+146,General Anaesthesia Peptic ulcer disease
+147,Acidity Heartburn Stomach ulcers
+148,Fungal skin infections
+149,Dandruff
+150,Hyperthyroidism
+151,Glaucoma
+152,High calcium levels in the blood
+153,Hyperparathyroidism
+154,Diabetic nerve pain
+155,Hypertension (high blood pressure) Heart failure
+156,heart attack and stroke
+157,Bacterial infections
+158,Parasitic infections
+159,Chronic kidney disease
+160,Pain due to muscle spasm
+161,Melasma
+162,Alcoholic fatty liver disease
+163,Ear infection
+164,High cholesterol
+165,heart attack and stroke
+166,Amyotrophic lateral sclerosis (ALS)
+167,Potassium deficiency
+168,Nutritional deficiencies
+169,Pulmonary arterial hypertension (PAH)
+170,Herpes Simplex Virus Infections Chickenpox Shingles Herpes labialis Genital herpes infection
+171,Liver  disease
+172,Ocular hypertension
+173,Glaucoma
+174,Migraine
+175,Premature Labor
+176,Indigestion
+177,Alkalinizing agent
+178,Metabolic acidosis
+179,Severe bacterial infections
+180,Rabies
+181,Epilepsy/Seizures
+182,Allergic conditions Appetite stimulant
+183,Ocular hypertension Glaucoma
+184,Uveitis
+185,High blood pressure with high cholesterol
+186,Skin infections
+187,Pancreatic enzyme deficiency
+188,Hypertension (high blood pressure)
+189,Angina (heart-related chest pain)
+190,Arrhythmia
+191,Premature Labor
+192,Recurrent miscarriage
+193,Schizophrenia
+194,High phosphate levels in blood
+195,Depression
+196,Infantile spasms
+197,Hormone replacement therapy Female infertility
+198,chorea (a movement disorder) associated with Huntington's disease
+199,Iron overload
+200,Intestinal ulcers
+201,Stomach ulcers
+202,Arrhythmia
+203,Inflammatory conditions
+204,Autoimmune conditions
+205,Acidity
+206,Heartburn
+207,Stomach ulcers
+208,Acne
+209,Bacterial infections
+210,Fungal infections of vagina
+211,Prostate cancer
+212,Patent ductus arteriosus (PDA)
+213,Acute migraine headache
+214,organ rejection in transplant patients Rheumatoid arthritis Psoriasis
+215,graft rejection following Bone marrow transplantation
+216,Nephrotic syndrome
+217,Worm infections
+218,Gastroesophageal reflux disease (Acid reflux)
+219,Peptic ulcer disease
+220,Zollinger-Ellison syndrome
+221,Premature Labor
+222,Peripheral vascular disease
+223,Muscle pain
+224,Indigestion
+225,Gastroesophageal reflux disease (Acid reflux)
+226,Intestinal ulcers
+227,Irritable bowel syndrome
+228,Hypertension (high blood pressure)
+229,Heart failure
+230,heart attack and stroke
+231,Heartburn
+232,Gastroesophageal reflux disease (Acid reflux)
+233,Peptic ulcer disease
+234,Zollinger-Ellison syndrome
+235,Pain relief
+236,Fever
+237,Constipation
+238,Bacterial infections
+239,Acne
+240,Acidity Stomach ulcers Bloating
+241,Organophosphate poisoning
+242,Hormone replacement therapy
+243,Female infertility
+244,Osteoarthritis
+245,Hypertension (high blood pressure)
+246,heart attack and stroke
+247,Heart failure
+248,Severe fungal infections
+249,Leishmaniasis.
+250,Nasal allergy symptoms
+251,Motion sickness
+252,Insomnia
+253,Hypertension (high blood pressure)
+254,Angina (heart-related chest pain)
+255,Arrhythmia
+256,Heart attack
+257,Migraine
+258,HIV infection
+259,Infectious diarrhea
+260,Contraception
+261,Closure of surgical incisions
+262,Bacterial eye infections
+263,Bacterial infections
+264,Post menopausal osteoporosis
+265,Dandruff
+266,organ rejection in transplant patients
+267,Breast cancer
+268,Pancreatic cancer
+269,Lung cancer
+270,Kidney cancer
+271,Chronic obstructive pulmonary disease (COPD)
+272,Sneezing and runny nose due to allergies
+273,Arthralgia (joint pain)
+274,Hypertension (high blood pressure) Angina (heart-related chest pain)
+275,heart attack and stroke
+276,Inflammatory conditions
+277,Autoimmune conditions
+278,Cancer
+279,Overactive bladder (OAB) symptoms
+280,Coronavirus disease (COVID-19)
+281,Local anesthesia (Numb tissues in a specific area)
+282,Bacterial eye / ear infections
+283,Noncirrhotic Non-Alcoholic Steatohepatitis
+284,Non-alcoholic fatty liver disease
+285,Diabetic dyslipidemia (high cholesterol in diabetes)
+286,Wound infection
+287,Allergic skin conditions
+288,Allergic conditions
+289,Pheochromocytoma
+290,Hypertension (high blood pressure)
+291,migraine
+292,Anxiety
+293,Arrhythmia
+294,Heart attack
+295,Angina (heart-related chest pain)
+296,Tremors
+297,Muscle relaxation
+298,Mouth infection
+299,Sore throat
+300,Dry mouth
+301,Wound infection
+302,Burns
+303,Tetanus Diphtheria Pertussis
+304,Depression Smoking addiction
+305,Meniere's disease
+306,Bacterial skin infections
+307,Immunoglobulins deficiency
+308,Bacterial skin infections Bacterial eye infections
+309,Parkinson's disease
+310,Drug induced abnormal movements
+311,Eczema Psoriasis
+312,Ulcerative colitis
+313,Urinary retention
+314,Pain due to smooth muscle spasm
+315,Irritable bowel syndrome
+316,Hepatitis A infection
+317,postmenopausal Osteoporosis
+318,Pain relief Swelling
+319,Peptic ulcer disease
+320,Tetanus
+321,Sneezing and runny nose due to allergies
+322,Nasal polyps
+323,Gout
+324,Harmful effects of methotrexate
+325,High levels of prolactin Female infertility Acromegaly
+326,Respiratory tract infection
+327,Hepatitis B infection
+328,Cancer
+329,Neuropathic pain
+330,Epilepsy/Seizures
+331,Depression
+332,Panic disorder
+333,Obsessive-compulsive disorder
+334,Glaucoma
+335,Ocular hypertension
+336,Bacterial eye infections
+337,Post operative pain
+338,organ rejection in transplant patients
+339,Eczema
+340,Psoriasis
+341,Chickenpox
+342,Irritable bowel syndrome
+343,Abnormal uterine bleeding
+344,Endometriosis
+345,Motion sickness
+346,Vertigo
+347,Meniere's disease
+348,Depression
+349,Anxiety disorder
+350,Diabetic nerve pain
+351,Fibromyalgia
+352,Neuropathic pain
+353,Stress urinary incontinence
+354,Bloating
+355,Abdominal pain
+356,Vertigo
+357,Epilepsy/Seizures
+358,Bipolar disorder
+359,Migraine
+360,Constipation
+361,Hepatic encephalopathy
+362,Depression
+363,Post traumatic stress disorder
+364,Obsessive-compulsive disorder
+365,Panic disorder
+366,Premenstrual dysphoric disorder
+367,Anxiety
+368,Premenstrual syndrome (PMS)
+369,Heart failure Low blood pressure
+370,Worm infections Skin disorders
+371,pelvic pain associated with Endometriosis
+372,Hepatic encephalopathy
+373,Infectious diarrhea
+374,Acidity
+375,Stomach ulcers
+376,Bloating
+377,Indigestion
+378,Nausea
+379,Vomiting
+380,Rheumatoid arthritis
+381,Osteoarthritis
+382,Depression
+383,Panic disorder
+384,Anxiety disorder
+385,Piles
+386,Varicose veins
+387,Allergic conditions Motion sickness
+388,Bacterial & parasitic infections
+389,Diarrhea
+390,Dysentery
+391,Rheumatic disorder
+392,Systemic lupus erythematosus (SLE)
+393,Allergic conditions
+394,Eye disorders
+395,Skin disorders
+396,Depression
+397,Anxiety disorder
+398,Panic disorder
+399,Headache
+400,Heart failure Arrhythmia
+401,Inflammation of gums
+402,Duchenne muscular dystrophy(DMD)
+403,Inflammatory conditions
+404,Autoimmune conditions
+405,Cancer
+406,Anxiety disorder
+407,$name is thought to work by affecting the balance of certain chemicals (such as serotonin) in the brain. It helps improve mood and feelings of wellbeing relieves anxiety and tension helps you sleep better and increases your energy level. It is used to treat depression that is unresponsive to other medicines. You need to take it regularly as it is prescribed for it to be most effective and should not stop taking it suddenly. Depression
+408,Insomnia
+409,Depression
+410,Anxiety disorder
+411,Gastroesophageal reflux disease (Acid reflux)
+412,Indigestion
+413,Nausea
+414,Vomiting
+415,Female infertility Male hypogonadism Male infertility
+416,Short term fluid replacement after trauma
+417,Dehydration
+418,Dental cavities
+419,Bacterial infections of external ear Fungal skin infections
+420,Parasitic Worm infections
+421,Skin disorders
+422,Parkinson's disease Drug induced abnormal movements
+423,Localized muscle spasm
+424,Dental pain
+425,Vitiligo Psoriasis
+426,Skin conditions with inflammation & itching
+427,Asthma
+428,Severe fungal infections
+429,Blood cancer (Chronic myeloid leukaemia)
+430,Non-small cell lung cancer Pancreatic cancer
+431,Angina (heart-related chest pain)
+432,Heart attack
+433,Stroke
+434,Muscle cramps
+435,Menopausal symptoms
+436,Nausea
+437,Vomiting
+438,Nausea Vomiting
+439,Hypothyroidism
+440,Pain due to smooth muscle spasm
+441,Gastroesophageal reflux disease (Acid reflux)
+442,Functional dyspepsia
+443,Hypertension (high blood pressure)
+444,heart attack and stroke
+445,Heart failure
+446,Hormone replacement therapy
+447,Epilepsy
+448,Chronic hepatitis B virus (HBV) infection
+449,Pain relief
+450,Swelling
+451,Facial hirsutism (Excessive hair growth on face)
+452,Heavy menstrual bleeding
+453,Swelling
+454,Uterine fibroids
+455,Breast cancer Endometrial cancer
+456,Bleeding
+457,Epilepsy/Seizures
+458,Migraine Bipolar disorder
+459,Polycystic ovarian syndrome (PCOS)
+460,Female infertility
+461,Male hypogonadism
+462,Hypertension (high blood pressure)
+463,Edema
+464,Heart failure
+465,Female infertility
+466,Bacterial infections of the vagina (bacterial vaginosis)
+467,Fungal skin infections
+468,Fungal infections
+469,Gastroesophageal reflux disease (Acid reflux) Peptic ulcer disease
+470,Atopic dermatitis
+471,Heavy menstrual bleeding
+472,Menstrual pain
+473,Rosacea
+474,Eczema Severe allergic reactions
+475,Allergic conditions
+476,Cancer
+477,Skin disorders
+478,Eye disorders
+479,Growth failure due to growth hormone deficiency
+480,Hypotension following spinal anesthesia
+481,Infections after chemotherapy
+482,Erectile dysfunction
+483,Pulmonary arterial hypertension (PAH)
+484,Redness and swelling in the eye
+485,Allergic skin conditions
+486,Premature ejaculation
+487,Paracetamol toxicity
+488,Breast cancer Stomach cancer
+489,Heavy menstrual bleeding
+490,Pain during menstruation
+491,Endometriosis
+492,Premenstrual syndrome (PMS)
+493,Prostate cancer
+494,Endometriosis
+495,Uterine fibroids
+496,Precocious puberty (premature puberty)
+497,Diphtheria
+498,Tetanus
+499,Pertussis
+500,Hepatitis B infection
+501,Haemophilus influenzae Type b disease
+502,Breast cancer
+503,Infertility due to anovulation
+504,Non-Hodgkin lymphoma (NHL) Rheumatoid arthritis Blood cancer (Chronic lymphocytic leukemia) Granulomatosis with polyangiitis Microscopic polyangiitis
+505,Vitamin E deficiency
+506,Pupil dilation
+507,Benign fibrocystic breast disease
+508,Endometriosis
+509,Premenstrual syndrome (PMS)
+510,Menstrual pain
+511,Indigestion Bloating
+512,Rheumatoid arthritis
+513,Systemic lupus erythematosus (SLE)
+514,Type 2 diabetes mellitus
+515,Metastatic breast cancer
+516,Bacterial infections of urinary tract
+517,Depression Obsessive-compulsive disorder
+518,Iron deficiency anemia
+519,Cancer
+520,Rheumatoid arthritis
+521,Psoriasis
+522,Crohn's disease
+523,Idiopathic pulmonary fibrosis
+524,Deep vein thrombosis Pulmonary embolism
+525,Actinic keratosis
+526,Primary biliary cirrhosis
+527,Urinary tract infections (UTIs)
+528,Female infertility Male hypogonadism
+529,Benzodiazepine overdose
+530,Rheumatoid arthritis
+531,Psoriasis
+532,Cancer
+533,Crohn's disease
+534,Bacterial infections Parasitic infections
+535,Interstitial cystitis
+536,Severe allergic reactions
+537,Skin conditions with inflammation & itching
+538,Herpes labialis Herpes Simplex Virus Infections Shingles Genital herpes infection
+539,Bipolar depression
+540,Hair loss
+541,Benign prostatic hyperplasia
+542,Multiple sclerosis (MS)
+543,Heart failure Hypertension (high blood pressure)
+544,heart attack and stroke
+545,Fibromyalgia Depression
+546,Anemia due to folic acid deficiency
+547,Ulcerative colitis Crohn's disease
+548,Heartburn
+549,Nausea
+550,HPV-associated cancers
+551,Genital warts (Skin bumps on or around the genital or anal area)
+552,Fungal infections of vagina
+553,Fungal infections
+554,Low blood pressure
+555,Myasthenia gravis
+556,Paralytic ileus
+557,Post-operative urinary retention
+558,Post menopausal osteoporosis Paget's disease
+559,Cytomegalovirus Infection
+560,Neuropathic pain
+561,Epilepsy/Seizures
+562,Fibromyalgia
+563,Scabies
+564,Non-small cell lung cancer
+565,Mouth infection
+566,Bloating Abdominal pain
+567,Cognitive enhancer
+568,Osteoporosis Hypercalcemia
+569,Severe hypoglycemia
+570,Non-small cell lung cancer Breast cancer Pancreatic cancer Urinary bladder cancer Ovarian cancer
+571,Calcium deficiency
+572,Peptic ulcer disease
+573,Irritable bowel syndrome Pain relief
+574,Low levels of sodium in the blood
+575,Severe allergic reactions
+576,Allergic conditions
+577,Cancer
+578,Skin disorders
+579,Eye disorders
+580,Leprosy
+581,Burns Stretch Marks
+582,Menstrual pain
+583,Thrombophlebitis
+584,Diphtheria Haemophilus influenzae Type b disease Pertussis Tetanus Polio
+585,Eye injury
+586,Chronic hepatitis C virus (HCV) infection
+587,Chronic liver disease Liver cirrhosis
+588,Herpes labialis Genital herpes infection Herpes zoster
+589,Head and neck cancer Sickle cell anemia
+590,Wrinkles
+591,Stroke
+592,Peripheral vascular disease
+593,Rheumatoid arthritis
+594,Genital warts (Skin bumps on or around the genital or anal area) Actinic keratosis Basal cell cancer
+595,Angina (heart-related chest pain)
+596,Heart failure
+597,Infections
+598,Rosacea
+599,Parasitic infections
+600,Angina (heart-related chest pain)Controlling Heart failure
+601,Mania Bipolar disorder
+602,Ankylosing spondylitis Rheumatoid arthritis Psoriasis Ulcerative colitis Crohn's disease
+603,Eye examination
+604,Diseases of respiratory tract
+605,Bradycardia
+606,Cardiac arrest
+607,Chronic hepatitis B virus (HBV) infection Chronic hepatitis C virus (HCV) infection Multiple myeloma Follicular lymphoma Hairy cell leukemia
+608,Friedreich's ataxia
+609,Lebers Hereditary Optic Neuropathy
+610,Post-operative eye pain and inflammation Pain relief
+611,Obesity
+612,Cancer of colon and rectum
+613,Bacterial & parasitic infections
+614,Iron deficiency anemia Anemia due to chronic kidney disease
+615,Japanese Encephalitis
+616,Constipation Intestine preparation before any surgery
+617,Inflammatory conditions
+618,Autoimmune conditions
+619,Severe allergic reactions
+620,Allergic conditions
+621,Rheumatic disorder
+622,Skin disorders
+623,Eye disorders
+624,Nephrotic syndrome
+625,Gastroesophageal reflux disease (Acid reflux) Indigestion
+626,Kidney stone
+627,Eye infection
+628,Eye infection with inflammation
+629,Bacterial infections Tuberculosis (TB)
+630,Increased potassium levels in blood
+631,Osteoarthritis Rheumatoid arthritis
+632,Malaria
+633,Gastroesophageal reflux disease (Acid reflux) Irritable bowel syndrome Heartburn
+634,Hypertensive emergency
+635,Edema
+636,Functional dyspepsia
+637,Nausea
+638,Vomiting
+639,Diabetic gastroparesis (diabetic nerve disease affecting stomach)
+640,Rheumatoid arthritis Psoriatic arthritis
+641,Calcium deficiency
+642,Metabolic Bone disease
+643,Constipation Irritable bowel syndrome
+644,Dry Skin
+645,Resistant Tuberculosis (TB)
+646,Severe bacterial infections
+647,Amoebiasis
+648,Malaria
+649,Ear pain
+650,Hypertensive emergency
+651,Epilepsy/Seizures Bipolar disorder
+652,Eye infection
+653,Inflammatory conditions
+654,Autoimmune conditions
+655,Carnitine deficiency
+656,Heartburn Gastroesophageal reflux disease (Acid reflux) Peptic ulcer disease
+657,Inflammation of gums Mouth ulcers Mouth infection
+658,Fungal infections of mouth (Thrush)
+659,Fungal infections
+660,Hormone replacement therapy Post menopausal osteoporosis
+661,Hypertension (high blood pressure)
+662,heart attack and stroke Heart failure
+663,Liver disease
+664,Epilepsy/Seizures
+665,Migraine Lennox Gastaut syndrome
+666,Multiple myeloma
+667,Myelodysplastic syndrome
+668,Inflammation of gums Local anesthesia (Numb tissues in a specific area)
+669,Schizophrenia
+670,Depression
+671,Bipolar disorder
+672,Vitamin C deficiency
+673,Multiple myeloma Mantle-cell lymphoma
+674,Vitamin & mineral deficiency
+675,Amenorrhea
+676,Abnormal uterine bleeding
+677,Endometriosis
+678,Pernicious Anemia Vitamin B12 deficiency
+679,Hypertension (high blood pressure)
+680,Heart failure
+681,Benign prostatic hyperplasia
+682,Post-delivery bleeding
+683,Sneezing and runny nose due to allergies
+684,Nasal congestion (blocked nose)
+685,Nasal polyps
+686,Hyperpigmentation
+687,Acne
+688,Bacterial infections
+689,Parasitic infections
+690,Hypertension (high blood pressure)
+691,Angina (heart-related chest pain)
+692,Arrhythmia
+693,Heart attack
+694,Stroke
+695,Migraine
+696,Myopia
+697,Epilepsy/Seizures Trigeminal neuralgia Diabetic nerve pain
+698,Diabetes insipidus Bed-wetting
+699,Angioedema
+700,Meningococcal disease
+701,Vitiligo
+702,Gastroesophageal reflux disease (Acid reflux)
+703,Irritable bowel syndrome
+704,Abdominal pain
+705,Abdominal pain Irritable bowel syndrome
+706,Fatty liver disease
+707,Typhoid fever
+708,Bacterial infections
+709,Constipation Bloating
+710,Diabetes insipidus
+711,Bed-wetting
+712,Reversing the effects of certain drugs used during surgery
+713,Peptic ulcer disease
+714,Bacterial infections
+715,Asthma
+716,Sneezing and runny nose due to allergies
+717,Seizures in pregnant women with high blood pressure Decreased magnesium levels in blood
+718,Contraception Heavy menstrual bleeding
+719,Hypertensive emergency
+720,Hypertension (high blood pressure)
+721,Angina (heart-related chest pain)
+722,Arrhythmia
+723,Heart attack
+724,Migraine
+725,Male infertility
+726,Nasal congestion (blocked nose)
+727,Parkinson's disease Restless leg syndrome
+728,Depression Anxiety
+729,Skin infections
+730,Mouth infection
+731,Diarrhea
+732,Dysentery
+733,Vitamin & mineral deficiency
+734,Diabetic nerve pain
+735,Hypertension (high blood pressure)
+736,Heart attack
+737,Stroke
+738,Diarrhea Worm infections
+739,Alzheimer's disease Stroke Dementia in Parkinson's disease Age related memory loss Head injury
+740,Opioid dependence Alcohol addiction
+741,Vitamin B12 deficiency
+742,Subarachnoid haemorrhage
+743,Depression Bed-wetting Neuropathic pain
+744,Fungal skin infections Fungal nail infections
+745,Raynaud's disease
+746,Migraine
+747,Fungal infections of eye
+748,Osteoporosis
+749,Paget's disease
+750,Idiopathic pulmonary fibrosis
+751,Non-small cell lung cancer
+752,Infective Diarrhea
+753,Worm infections
+754,Ear infection
+755,Fungal infections
+756,Infertility
+757,Quitting smoking
+758,Stroke
+759,Head injury
+760,Alzheimer's disease
+761,Dementia in Parkinson's disease
+762,Nausea
+763,Vomiting
+764,Diarrhea
+765,Emergency contraception
+766,Overactive bladder (OAB) symptoms
+767,Migraine Cervical Dystonia Muscle spasm
+768,Liver cancer Kidney cancer Thyroid cancer
+769,Eczema
+770,Depression Anxiety disorder
+771,Severe allergic reactions
+772,Allergic conditions
+773,Rheumatic disorder
+774,Skin disorders
+775,Eye disorders
+776,Nephrotic syndrome
+777,Nutritional deficiencies Vitamin B12 deficiency
+778,Schizophrenia
+779,Mania
+780,Bacterial eye / ear infections
+781,Bacterial infections
+782,Acromegaly Carcinoid tumours Bleeding esophageal varices
+783,Anxiety disorder
+784,Early-stage bladder cancer
+785,Appetite stimulant
+786,Allergic skin conditions
+787,Prostate cancer Endometriosis Precocious puberty (premature puberty)
+788,pneumonia meningitis blood infection & ear infection
+789,Nausea
+790,Vomiting
+791,Indigestion
+792,Heartburn
+793,Pelvic inflammatory disease
+794,Bacterial infections
+795,Syphilis
+796,Rheumatic fever
+797,Symptomatic Pain relief
+798,Warts
+799,Heart attack
+800,Stroke
+801,Intermittent claudication
+802,Hormone replacement therapy
+803,Post menopausal osteoporosis
+804,heart attack and stroke Heart attack Peripheral vascular disease
+805,Dry mouth after radiotherapy of head and neck cancer
+806,Motion sickness Vertigo
+807,Melasma Hyperpigmentation
+808,Diabetic foot ulcers
+809,Erectile dysfunction Peripheral vascular disease
+810,Measles
+811,Rubella
+812,Mumps
+813,Multiple myeloma
+814,Induction of labour
+815,Skin conditions with inflammation & itching
+816,Rheumatoid arthritis
+817,Osteoarthritis
+818,Polio
+819,Eye examination Uveitis
+820,Eye pain
+821,Vaginitis
+822,Typhoid fever
+823,Rheumatoid arthritis Ankylosing spondylitis Psoriasis Ulcerative colitis Crohn's disease
+824,Peptic ulcer disease
+825,Mouth ulcers
+826,Low platelet count due to ITP or HCV infection
+827,Severe Aplastic Anemia
+828,Chronic immune thrombocytopenia
+829,Acidity Indigestion
+830,Age-related hearing loss (presbycusis)
+831,Dementia Associated with Parkinson's disease Alzheimer's disease
+832,Rubella
+833,diarrhea due to rotavirus
+834,Sneezing and runny nose due to allergies
+835,Asthma
+836,kidney transplant rejection
+837,Sunburn
+838,Muscle spasms of the urinary tract
+839,Anxiety
+840,Nausea
+841,Vomiting
+842,Migraine
+843,Vertigo
+844,Short term anxiety
+845,Snake Bite
+846,Skin conditions with inflammation & itching
+847,Intestinal ulcers
+848,Stomach ulcers
+849,Burns Wound infection
+850,Male infertility
+851,Female infertility
+852,Improving Abdominal pain
+853,Irritable bowel syndrome
+854,Rheumatoid arthritis
+855,Ulcerative colitis
+856,Crohn's disease
+857,Ankylosing spondylitis
+858,Psoriatic arthritis
+859,Tetanus Diphtheria
+860,Hypersensitivity
+861,Inflammation of gums
+862,Dental cavities
+863,Fibrocystic Breast Disease
+864,Dry mouth
+865,Brain tumor
+866,Bacterial eye / ear infections
+867,Bacterial eye infections
+868,Peripheral vascular disease Intermittent claudication
+869,Tinnitus (ringing in the ears)
+870,Abdominal pain
+871,Gastroesophageal reflux disease (Acid reflux)
+872,Peptic ulcer disease
+873,Heartburn
+874,Moderate to severe pain
+875,Psoriasis Acne
+876,Lung infections in patients with cystic fibrosis
+877,Multiple myeloma Lepra reaction
+878,Oral lichen planus
+879,Heartburn
+880,Stomach ulcers
+881,Acidity Stomach ulcers
+882,Myasthenia gravis Paralytic ileus Post-operative urinary retention Reversal of effect of skeletal muscle relaxant  after surgery
+883,Dermatitis Fungal skin infections
+884,Tuberculosis (TB)
+885,Schizophrenia Short term anxiety
+886,Chronic hepatitis B virus (HBV) infection
+887,HIV infection
+888,Hepatitis A infection
+889,Hepatitis B infection
+890,Soft tissue sarcoma
+891,Severe sepsis
+892,Pancreatitis
+893,Post menopausal osteoporosis Paget's disease Hypercalcemia
+894,Varicose veins
+895,Piles
+896,Lymphedema
+897,Ulcerative colitis
+898,Irritable bowel syndrome
+899,Clostridium difficile associated diarrhea
+900,Severe allergic reactions Cardiac arrest
+901,Fungal infections of eye Severe fungal infections
+902,Hay fever
+903,Allergic skin conditions
+904,Sneezing and runny nose due to allergies
+905,Skin disorders
+906,Kidney cancer Soft tissue sarcoma
+907,Eye Irritation
+908,Parasitic Worm infections
+909,Softening of earwax
+910,Breast cancer Cancer of colon and rectum
+911,Fungal infections of eye
+912,Fungal infections
+913,Blood cancer (Acute lymphocytic leukemia)
