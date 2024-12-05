@@ -1,8 +1,7 @@
-using database.models;
+using clinical_data_grid.database.models;
 using Microsoft.EntityFrameworkCore;
 using database.extensions;
-namespace database.dbContext;
-
+namespace clinical_data_grid.database;
 public class postgresHealthCareDbContext : DbContext
 {
     private readonly ILogger<postgresHealthCareDbContext> _logger;
@@ -61,3 +60,4 @@ public class postgresHealthCareDbContext : DbContext
         }
     }
 }
+

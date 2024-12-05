@@ -1,8 +1,7 @@
-using database.models;
+using clinical_data_grid.database.models;
 using Microsoft.EntityFrameworkCore;
 
-namespace database.extensions
-{
+namespace database.extensions;
   public static class EntityExtensions
   {
     public static ModelBuilder medicineEntityExt(this ModelBuilder modelBuilder)
@@ -137,4 +136,3 @@ namespace database.extensions
     }
   }
 
-}

@@ -1,5 +1,5 @@
 
-namespace clinical_data_grid.extensions;
+namespace clinical_data_grid.apis.extensions;
 
 public static class SwaggerExtensions
 {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using database.dbContext;
+using clinical_data_grid.database;
 
 #nullable disable
 
@@ -21,7 +21,7 @@ namespace clinical_data_grid.database.migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("database.models.ClinicalHealthStaticData", b =>
+            modelBuilder.Entity("clinical_data_grid.database.models.ClinicalHealthStaticData", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,7 +62,7 @@ namespace clinical_data_grid.database.migrations
                     b.ToTable("clinical_health_static_data");
                 });
 
-            modelBuilder.Entity("database.models.Diseases", b =>
+            modelBuilder.Entity("clinical_data_grid.database.models.Diseases", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -82,7 +82,7 @@ namespace clinical_data_grid.database.migrations
                     b.ToTable("diseases", (string)null);
                 });
 
-            modelBuilder.Entity("database.models.MedicalSideEffects", b =>
+            modelBuilder.Entity("clinical_data_grid.database.models.MedicalSideEffects", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -102,7 +102,7 @@ namespace clinical_data_grid.database.migrations
                     b.ToTable("medical_side_effects", (string)null);
                 });
 
-            modelBuilder.Entity("database.models.MedicineBenefits", b =>
+            modelBuilder.Entity("clinical_data_grid.database.models.MedicineBenefits", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -122,7 +122,7 @@ namespace clinical_data_grid.database.migrations
                     b.ToTable("medicine_benefits", (string)null);
                 });
 
-            modelBuilder.Entity("database.models.Medicines", b =>
+            modelBuilder.Entity("clinical_data_grid.database.models.Medicines", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -148,7 +148,7 @@ namespace clinical_data_grid.database.migrations
                     b.ToTable("medicines", (string)null);
                 });
 
-            modelBuilder.Entity("database.models.PrescriptionTemplate", b =>
+            modelBuilder.Entity("clinical_data_grid.database.models.PrescriptionTemplate", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -168,7 +168,7 @@ namespace clinical_data_grid.database.migrations
                     b.ToTable("prescription_template");
                 });
 
-            modelBuilder.Entity("database.models.Symptoms", b =>
+            modelBuilder.Entity("clinical_data_grid.database.models.Symptoms", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -250,13 +250,13 @@ namespace clinical_data_grid.database.migrations
 
             modelBuilder.Entity("medicine_benefits_join", b =>
                 {
-                    b.HasOne("database.models.MedicineBenefits", null)
+                    b.HasOne("clinical_data_grid.database.models.MedicineBenefits", null)
                         .WithMany()
                         .HasForeignKey("BenefitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("database.models.Medicines", null)
+                    b.HasOne("clinical_data_grid.database.models.Medicines", null)
                         .WithMany()
                         .HasForeignKey("MedicineId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -265,13 +265,13 @@ namespace clinical_data_grid.database.migrations
 
             modelBuilder.Entity("medicine_sideEffects_join", b =>
                 {
-                    b.HasOne("database.models.Medicines", null)
+                    b.HasOne("clinical_data_grid.database.models.Medicines", null)
                         .WithMany()
                         .HasForeignKey("MedicineId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("database.models.MedicalSideEffects", null)
+                    b.HasOne("clinical_data_grid.database.models.MedicalSideEffects", null)
                         .WithMany()
                         .HasForeignKey("SideEffectId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -280,13 +280,13 @@ namespace clinical_data_grid.database.migrations
 
             modelBuilder.Entity("symptoms_diseases_join", b =>
                 {
-                    b.HasOne("database.models.Diseases", null)
+                    b.HasOne("clinical_data_grid.database.models.Diseases", null)
                         .WithMany()
                         .HasForeignKey("DiseasesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("database.models.Symptoms", null)
+                    b.HasOne("clinical_data_grid.database.models.Symptoms", null)
                         .WithMany()
                         .HasForeignKey("SymptomsId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -295,13 +295,13 @@ namespace clinical_data_grid.database.migrations
 
             modelBuilder.Entity("symptoms_medicine_join", b =>
                 {
-                    b.HasOne("database.models.Diseases", null)
+                    b.HasOne("clinical_data_grid.database.models.Diseases", null)
                         .WithMany()
                         .HasForeignKey("DiseasesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("database.models.Medicines", null)
+                    b.HasOne("clinical_data_grid.database.models.Medicines", null)
                         .WithMany()
                         .HasForeignKey("MedicinesId")
                         .OnDelete(DeleteBehavior.Cascade)

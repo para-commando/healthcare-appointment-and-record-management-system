@@ -1,62 +1,65 @@
-using clinical_data_grid.extensions;
-using database.dbContext;
+using clinical_data_grid.apis.extensions;
+using clinical_data_grid.apis.services;
+using clinical_data_grid.database;
 using Microsoft.EntityFrameworkCore;
 
-try
+public class Program
 {
-    var builder = WebApplication.CreateBuilder(args);
-    // Configure logging
-    builder.Services.AddLogging(configure =>
+    public static void Main(string[] args)
     {
-        // Clears all existing logging providers
-        configure.ClearProviders();
+        try
+        {
+            var builder = WebApplication.CreateBuilder(args);
+            // making the logger object unique to every http request
+            builder.Services.AddScoped(typeof(CustomLogger<>));
+            // Configure logging
+            builder.Services.AddLogging(configure =>
+            {
+                configure.ClearProviders(); // Clears all existing logging providers
+                configure.AddConsole();    // Adds the Console logging provider
+                configure.AddDebug();      // Adds the Debug logging provider
+                configure.SetMinimumLevel(LogLevel.Debug); // Sets the minimum log level to Debug
+            });
 
-        // Adds the Console logging provider
-        configure.AddConsole();
+            // Add Swagger generator with proper grouping logic
+            builder.AddSwaggerGenCustExt();
 
-        // Adds the Debug logging provider
-        configure.AddDebug();
+            // Add Controllers
+            builder.Services.AddControllers();
 
-        // Sets the minimum log level to Debug
-        configure.SetMinimumLevel(LogLevel.Debug);
-    });
+            // Add Database Context with Connection String
+            var connectionString = builder.Configuration.GetConnectionString("postgresHealthCareDB")
+                ?? throw new InvalidOperationException("Connection string 'postgresHealthCareDB' not found.");
 
-    // Add Swagger generator with proper grouping logic
-    builder.AddSwaggerGenCustExt();
+            builder.Services.AddDbContext<postgresHealthCareDbContext>(options =>
+                options.UseNpgsql(connectionString));
 
-    // Add Controllers
-    builder.Services.AddControllers();
+            // Build the application
+            var app = builder.Build();
 
-    // Add Database Context with Connection String
-    var connectionString = builder.Configuration.GetConnectionString("postgresHealthCareDB")
-        ?? throw new InvalidOperationException("Connection string 'postgresHealthCareDB' not found.");
+            // Map Controllers
+            app.MapControllers();
 
-    builder.Services.AddDbContext<postgresHealthCareDbContext>(options =>
-        options.UseNpgsql(connectionString));
+            // Use Swagger Extensions
+            app.UseSwaggerCustExt();
 
-    // Build the application
-    var app = builder.Build();
+            // Start the application
+            app.Run();
+        }
+        // Found this from https://github.com/dotnet/efcore/issues/29923#issuecomment-2092619682
+        // as a solution to "Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted."
+        catch (Exception ex) when (ex is not HostAbortedException && ex.Source != "Microsoft.EntityFrameworkCore.Design")
+        {
+            // Log any critical startup errors
+            var loggerFactory = LoggerFactory.Create(logging =>
+            {
+                logging.AddConsole();
+                logging.AddDebug();
+            });
+            var logger = loggerFactory.CreateLogger<Program>();
 
-    // Map Controllers
-    app.MapControllers();
-
-    // Use Swagger Extensions
-    app.UseSwaggerCustExt();
-
-    // Start the application
-    app.Run();
-}
-// found this from https://github.com/dotnet/efcore/issues/29923#issuecomment-2092619682 as a solution to "Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted."
-catch (Exception ex) when (ex is not HostAbortedException && ex.Source != "Microsoft.EntityFrameworkCore.Design")
-{
-    // Log any critical startup errors
-    var loggerFactory = LoggerFactory.Create(logging =>
-    {
-        logging.AddConsole();
-        logging.AddDebug();
-    });
-    var logger = loggerFactory.CreateLogger<Program>();
-
-    logger.LogCritical(ex, "An error occurred during application startup.");
-    throw; // Re-throw the exception to terminate the application
+            logger.LogCritical(ex, "An error occurred during application startup.");
+            throw; // Re-throw the exception to terminate the application
+        }
+    }
 }
