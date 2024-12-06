@@ -1,6 +1,6 @@
 using clinical_data_grid.database.models;
 using Microsoft.EntityFrameworkCore;
-using database.extensions;
+using clinical_data_grid.database.extensions;
 namespace clinical_data_grid.database;
 public class postgresHealthCareDbContext : DbContext
 {

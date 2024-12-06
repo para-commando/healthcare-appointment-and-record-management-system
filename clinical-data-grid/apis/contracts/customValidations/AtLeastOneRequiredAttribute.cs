@@ -21,7 +21,7 @@ public class AtLeastOneRequiredAttribute : ValidationAttribute
         {
             var property = type.GetProperty(propertyName);
             var propertyValue = property?.GetValue(value);
-            return propertyValue != null && !string.IsNullOrEmpty(propertyValue.ToString());
+            return propertyValue != null && !string.IsNullOrEmpty(propertyValue?.ToString()?.Trim());
         });
 
         if (!hasValue)
