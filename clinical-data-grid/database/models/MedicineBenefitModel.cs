@@ -1,4 +1,4 @@
-namespace database.models;
+namespace clinical_data_grid.database.models;
 using System.ComponentModel.DataAnnotations; // For validation attributes
 using System.ComponentModel.DataAnnotations.Schema; // For database-specific annotations
 [Table("medicine_benefits")]

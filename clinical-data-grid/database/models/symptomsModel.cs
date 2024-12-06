@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations; // For validation attributes
 using System.ComponentModel.DataAnnotations.Schema; // For database-specific annotations
 
-namespace database.models;
+namespace clinical_data_grid.database.models;
 [Table("symptoms")]
 public class Symptoms
 {

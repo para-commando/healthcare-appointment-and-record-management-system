@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using database.dbContext;
-namespace clinical_data_grid
-{
+using clinical_data_grid.database;
+namespace clinical_data_grid.controllers;
+
     [ApiController]
     [Route("api/[controller]")]
     public class HealthCheckController : ControllerBase
@@ -49,4 +49,4 @@ namespace clinical_data_grid
             }
         }
     }
-}
+
