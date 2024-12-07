@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using clinical_data_grid.database.models;
 using clinical_data_grid.apis.services;
 using clinical_data_grid.database.extensions;
+using Microsoft.AspNetCore.Http.HttpResults;
 namespace clinical_data_grid.controllers;
 [ApiController]
 [Route("api/[controller]")]
@@ -62,7 +63,9 @@ public class StaticDataController : ControllerBase
             .ToListAsync();
             if (result?.Count == 0)
             {
-                return NoContent();
+                _logger.Log(LogLevel.Warning, "Data not found");
+
+                return NotFound("Data not found");
             }
 
             return Ok(result);
@@ -77,7 +80,7 @@ public class StaticDataController : ControllerBase
 
     [HttpPut]
     [Route("update-health-static-data")]
-    public async Task<IActionResult> UpdateHealthStaticData([FromQuery] int id, [FromBody] SearchHealthStaticData updatePayload)
+    public async Task<IActionResult> UpdateHealthStaticData([FromQuery] int id, [FromBody] UpdateHealthStaticData updatePayload)
     {
         try
         {
@@ -94,7 +97,7 @@ public class StaticDataController : ControllerBase
             if (result == null)
             {
                 _logger.Log(LogLevel.Warning, "No data available to update");
-                return NoContent();  // Return No Content if no data found in the database. 204 No Content.
+                return NotFound("No data available to update");  // Return No Content if no data found in the database. 204 No Content.
             }
             int noOfColsUpdated = await _dbContext.ClinicalHealthStaticData.UpdateHealthStatic(id, updatePayload);
 
@@ -107,6 +110,40 @@ public class StaticDataController : ControllerBase
             _logger.Log(LogLevel.Error, "An error occurred in UpdateHealthStaticData", ex);
 
             return StatusCode(500, new { Message = "An error occurred in UpdateHealthStaticData" });
+        }
+    }
+
+    [HttpDelete]
+    [Route("delete-health-static-data")]
+    public async Task<IActionResult> DeleteHealthStaticData([FromQuery] int id)
+    {
+        try
+        {
+            _logger.SetCustomMessage("DeleteHealthStaticData");
+
+            _logger.Log(LogLevel.Information, "Executing query to fetch health static data matching given id");
+
+            ClinicalHealthStaticData? result = await _dbContext.ClinicalHealthStaticData
+      .Where(b => b.Id == id)
+      .FirstOrDefaultAsync();
+
+            Console.WriteLine(result);
+            if (result == null)
+            {
+                _logger.Log(LogLevel.Warning, "No data found for deletion");
+                return NotFound("No data found for deletion");  // Return No Content if no data found in the database. 204 No Content.
+            }
+            int deletionResult = await _dbContext.ClinicalHealthStaticData.DeleteHealthStatic(id);
+
+            _logger.Log(LogLevel.Information, $"deletionResult {deletionResult}");
+
+            return Ok("deletion successful");
+        }
+        catch (Exception ex)
+        {
+            _logger.Log(LogLevel.Error, "An error occurred in DeleteHealthStaticData", ex);
+
+            return StatusCode(500, new { Message = "An error occurred in DeleteHealthStaticData" });
         }
     }
 
