@@ -2,6 +2,7 @@ using clinical_data_grid.apis.extensions;
 using clinical_data_grid.apis.services;
 using clinical_data_grid.database;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 
 public class Program
 {
@@ -33,6 +34,9 @@ public class Program
 
             builder.Services.AddDbContext<postgresHealthCareDbContext>(options =>
                 options.UseNpgsql(connectionString));
+
+            // redis cache config
+            builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("localhost"));
 
             // Build the application
             var app = builder.Build();

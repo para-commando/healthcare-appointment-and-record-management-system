@@ -5,6 +5,8 @@ using clinical_data_grid.database.models;
 using clinical_data_grid.apis.services;
 using clinical_data_grid.database.extensions;
 using Microsoft.AspNetCore.Http.HttpResults;
+using StackExchange.Redis;
+using System.Text.Json;
 namespace clinical_data_grid.controllers;
 [ApiController]
 [Route("api/[controller]")]
@@ -13,10 +15,13 @@ public class StaticDataController : ControllerBase
     private readonly postgresHealthCareDbContext _dbContext;
     private readonly CustomLogger<HealthCheckController> _logger;
 
-    public StaticDataController(postgresHealthCareDbContext dbContext, CustomLogger<HealthCheckController> logger)
+    private readonly IDatabase _redis;
+
+    public StaticDataController(postgresHealthCareDbContext dbContext, CustomLogger<HealthCheckController> logger, IConnectionMultiplexer muxer)
     {
         _dbContext = dbContext;
         _logger = logger;
+        _redis = muxer.GetDatabase();
 
     }
 
@@ -28,18 +33,38 @@ public class StaticDataController : ControllerBase
         {
             _logger.SetCustomMessage("GetAllHealthStaticData");
 
-            _logger.Log(LogLevel.Information, "Executing query to fetch all health static data");
+            string? redisData = "{}";
+            var keyName = $"GetAllHealthStaticData:{lastId},{pageSize}";
+            _logger.Log(LogLevel.Information, "Searching for cached data");
 
-            List<ClinicalHealthStaticData>? result = await _dbContext.ClinicalHealthStaticData.Where(b => b.Id > lastId).Take(pageSize).ToListAsync();
-
-            if (result == null || result.Count == 0)
+            redisData = await _redis.StringGetAsync(keyName);
+            if (string.IsNullOrEmpty(redisData))
             {
-                _logger.Log(LogLevel.Warning, "No data available");
-                return NoContent();  // Return No Content if no data found in the database. 204 No Content.
-            }
-            _logger.Log(LogLevel.Information, "returning available data..");
+                _logger.Log(LogLevel.Information, "Cached data found, returning");
 
-            return Ok(result);
+                _logger.Log(LogLevel.Information, "Cached data not found, Executing query to fetch health static paginated data");
+
+                List<ClinicalHealthStaticData>? result = await _dbContext.ClinicalHealthStaticData.Where(b => b.Id > lastId).Take(pageSize).ToListAsync();
+                if (result == null || result.Count == 0)
+                {
+                    _logger.Log(LogLevel.Warning, "No data available");
+                    return NoContent();  // Return No Content if no data found in the database. 204 No Content.
+                }
+                _logger.Log(LogLevel.Information, "data obtained, saving to redis cache...");
+                var serializedResult = JsonSerializer.Serialize(result);
+                var setTask = _redis.StringSetAsync(keyName, serializedResult);
+
+                var expireTask = _redis.KeyExpireAsync(keyName, TimeSpan.FromSeconds(3600));
+                await Task.WhenAll(setTask, expireTask);
+                _logger.Log(LogLevel.Information, "data saved to redis, returning...");
+                return Ok(result);
+
+            }
+            _logger.Log(LogLevel.Information, "Cached data found, returning");
+
+            var cachedResult = JsonSerializer.Deserialize<List<ClinicalHealthStaticData>>(redisData);
+            return Ok(cachedResult);
+
         }
         catch (Exception ex)
         {
