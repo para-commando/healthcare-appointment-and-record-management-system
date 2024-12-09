@@ -1,7 +1,11 @@
+using System.Text;
 using clinical_data_grid.apis.extensions;
 using clinical_data_grid.apis.services;
 using clinical_data_grid.database;
+using clinical_data_grid.database.models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using StackExchange.Redis;
 
 public class Program
@@ -37,14 +41,38 @@ public class Program
 
             // redis cache config
             builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("localhost"));
+            builder.Services.AddTransient<AuthService>();
 
+            builder.Services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("bAafd@A7d9#@F4*V!LHZs#ebKQrkE6pad2f3kj34c3dXy@")),
+                    ValidateIssuer = false,
+                    ValidateLifetime = true,
+                    ValidateAudience = false
+                };
+            });
+
+            builder.Services.AddAuthorization(x =>
+            {
+                x.AddPolicy("tech", p => p.RequireRole("developer"));
+            });
             // Build the application
             var app = builder.Build();
 
             // Map Controllers
             app.MapControllers();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             // Use Swagger Extensions
+
             app.UseSwaggerCustExt();
 
             // Start the application
