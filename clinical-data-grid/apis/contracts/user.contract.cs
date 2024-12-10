@@ -6,4 +6,5 @@ public record User(
     string Name,
     string Email,
     string Password,
+    string Department,
     string[] Roles);

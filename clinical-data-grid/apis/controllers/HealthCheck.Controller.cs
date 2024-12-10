@@ -60,18 +60,20 @@ public class HealthCheckController : ControllerBase
             1,
             "bruno.bernardes",
             "Bruno Bernardes",
-            "bruno@gmail.com",
+            "bruno@company.com",
             "q1w2e3r4t5",
+            "IT",
             ["developer"]);
 
         return service.Create(user);
     }
+
     [HttpGet]
     [Route("test")]
-    [Authorize]
+    [Authorize(Policy = "tech")]
     public IActionResult tttt()
     {
-        return Ok("ddddd");
+        return Ok("sddddds");
     }
 }
 

@@ -43,25 +43,12 @@ public class Program
             builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("localhost"));
             builder.Services.AddTransient<AuthService>();
 
-            builder.Services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-            {
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("bAafd@A7d9#@F4*V!LHZs#ebKQrkE6pad2f3kj34c3dXy@")),
-                    ValidateIssuer = false,
-                    ValidateLifetime = true,
-                    ValidateAudience = false
-                };
-            });
+            // jwt authentication custom extension
+            builder.ConfigureJwtAuthenticationCustExt();
 
-            builder.Services.AddAuthorization(x =>
-            {
-                x.AddPolicy("tech", p => p.RequireRole("developer"));
-            });
+            // jwt authorization custom extension
+            builder.ConfigureJwtAuthorizationCustExt();
+
             // Build the application
             var app = builder.Build();
 

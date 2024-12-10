@@ -13,11 +13,11 @@ namespace clinical_data_grid.controllers;
 public class StaticDataController : ControllerBase
 {
     private readonly postgresHealthCareDbContext _dbContext;
-    private readonly CustomLogger<HealthCheckController> _logger;
+    private readonly CustomLogger<StaticDataController> _logger;
 
     private readonly IDatabase _redis;
 
-    public StaticDataController(postgresHealthCareDbContext dbContext, CustomLogger<HealthCheckController> logger, IConnectionMultiplexer muxer)
+    public StaticDataController(postgresHealthCareDbContext dbContext, CustomLogger<StaticDataController> logger, IConnectionMultiplexer muxer)
     {
         _dbContext = dbContext;
         _logger = logger;

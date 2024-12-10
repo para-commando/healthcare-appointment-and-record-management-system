@@ -32,7 +32,7 @@ public class AuthService
     var tokenDescriptor = new SecurityTokenDescriptor
     {
       SigningCredentials = credentials,
-      Expires = DateTime.UtcNow.AddMilliseconds(100),
+      Expires = DateTime.UtcNow.AddHours(1),
       Subject = GenerateClaims(user)
     };
 
@@ -46,7 +46,9 @@ public class AuthService
     ci.AddClaim(new Claim("id", user.Id.ToString()));
     ci.AddClaim(new Claim(ClaimTypes.Name, user.Username));
     ci.AddClaim(new Claim(ClaimTypes.GivenName, user.Name));
-    ci.AddClaim(new Claim(ClaimTypes.Email, user.Email));
+    // if added as "email" then "emailaddress" will be assigned by default
+    ci.AddClaim(new Claim("officeMailId", user.Email));
+    ci.AddClaim(new Claim("department", user.Department));
 
     foreach (var role in user.Roles)
       ci.AddClaim(new Claim(ClaimTypes.Role, role));
