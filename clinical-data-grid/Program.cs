@@ -1,7 +1,11 @@
+using System.Text;
 using clinical_data_grid.apis.extensions;
 using clinical_data_grid.apis.services;
 using clinical_data_grid.database;
+using clinical_data_grid.database.models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using StackExchange.Redis;
 
 public class Program
@@ -37,6 +41,13 @@ public class Program
 
             // redis cache config
             builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("localhost"));
+            builder.Services.AddTransient<AuthService>();
+
+            // jwt authentication custom extension
+            builder.ConfigureJwtAuthenticationCustExt();
+
+            // jwt authorization custom extension
+            builder.ConfigureJwtAuthorizationCustExt();
 
             // Build the application
             var app = builder.Build();
@@ -44,7 +55,11 @@ public class Program
             // Map Controllers
             app.MapControllers();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             // Use Swagger Extensions
+
             app.UseSwaggerCustExt();
 
             // Start the application
