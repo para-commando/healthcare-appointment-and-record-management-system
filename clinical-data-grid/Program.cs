@@ -42,13 +42,23 @@ public class Program
             builder.Services.AddDbContext<postgresHealthCareDbContext>(options =>
                 options.UseNpgsql(dbConnectionString));
 
-            var redisConnectionString = builder.Configuration.GetConnectionString("redis")
-                            ?? throw new InvalidOperationException("Connection string 'redis' not found.");
-                            
+
+
             // redis cache config
-            builder.Services.AddSingleton<IConnectionMultiplexer>(
-                ConnectionMultiplexer.Connect(redisConnectionString)
-            );
+            builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+   {
+       var redisConfig = new ConfigurationOptions
+       {
+           EndPoints =
+           {
+            $"{builder.Configuration["ConnectionStrings:redis:host"]}:{builder.Configuration["ConnectionStrings:redis:port"]}"
+           },
+           User = builder.Configuration["ConnectionStrings:redis:username"],
+           Password = builder.Configuration["ConnectionStrings:redis:password"],
+       };
+
+       return ConnectionMultiplexer.Connect(redisConfig);
+   });
             builder.Services.AddTransient<AuthService>();
 
             // jwt authentication custom extension

@@ -6,11 +6,4 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5000:5001"
-    depends_on:
-      - redis
 
-  redis:
-    image: redis:7
-    container_name: redis
-    ports:
-      - "6378:6379"
