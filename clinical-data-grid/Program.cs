@@ -36,19 +36,29 @@ public class Program
             builder.Services.AddControllers();
 
             // Add Database Context with Connection String
-            var dbConnectionString = builder.Configuration.GetConnectionString("postgresHealthCareDB")
+            var dbConnectionString = builder.Configuration.GetConnectionString("postgresHealthCareDB_cloud")
                 ?? throw new InvalidOperationException("Connection string 'postgresHealthCareDB' not found.");
 
             builder.Services.AddDbContext<postgresHealthCareDbContext>(options =>
                 options.UseNpgsql(dbConnectionString));
 
-            var redisConnectionString = builder.Configuration.GetConnectionString("redis")
-                            ?? throw new InvalidOperationException("Connection string 'redis' not found.");
-                            
+
+
             // redis cache config
-            builder.Services.AddSingleton<IConnectionMultiplexer>(
-                ConnectionMultiplexer.Connect(redisConnectionString)
-            );
+            builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+   {
+       var redisConfig = new ConfigurationOptions
+       {
+           EndPoints =
+           {
+            $"{builder.Configuration["ConnectionStrings:redis_cloud:host"]}:{builder.Configuration["ConnectionStrings:redis_cloud:port"]}"
+           },
+           User = builder.Configuration["ConnectionStrings:redis_cloud:username"],
+           Password = builder.Configuration["ConnectionStrings:redis_cloud:password"],
+       };
+
+       return ConnectionMultiplexer.Connect(redisConfig);
+   });
             builder.Services.AddTransient<AuthService>();
 
             // jwt authentication custom extension
