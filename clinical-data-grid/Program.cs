@@ -2,10 +2,8 @@ using System.Text;
 using clinical_data_grid.apis.extensions;
 using clinical_data_grid.apis.services;
 using clinical_data_grid.database;
-using clinical_data_grid.database.models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using clinical_data_grid.database.extensions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using StackExchange.Redis;
 
 public class Program
@@ -15,6 +13,11 @@ public class Program
         try
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.WebHost.ConfigureKestrel(options =>
+            {
+                options.ListenAnyIP(5001);
+            });
+
             // making the logger object unique to every http request
             builder.Services.AddScoped(typeof(CustomLogger<>));
             // Configure logging
@@ -33,14 +36,19 @@ public class Program
             builder.Services.AddControllers();
 
             // Add Database Context with Connection String
-            var connectionString = builder.Configuration.GetConnectionString("postgresHealthCareDB")
+            var dbConnectionString = builder.Configuration.GetConnectionString("postgresHealthCareDB")
                 ?? throw new InvalidOperationException("Connection string 'postgresHealthCareDB' not found.");
 
             builder.Services.AddDbContext<postgresHealthCareDbContext>(options =>
-                options.UseNpgsql(connectionString));
+                options.UseNpgsql(dbConnectionString));
 
+            var redisConnectionString = builder.Configuration.GetConnectionString("redis")
+                            ?? throw new InvalidOperationException("Connection string 'redis' not found.");
+                            
             // redis cache config
-            builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("localhost"));
+            builder.Services.AddSingleton<IConnectionMultiplexer>(
+                ConnectionMultiplexer.Connect(redisConnectionString)
+            );
             builder.Services.AddTransient<AuthService>();
 
             // jwt authentication custom extension
@@ -62,6 +70,8 @@ public class Program
 
             app.UseSwaggerCustExt();
 
+            // Run pending db migrations on startup
+            app.MigrateDbContextOne();
             // Start the application
             app.Run();
         }
