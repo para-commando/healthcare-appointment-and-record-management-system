@@ -36,7 +36,7 @@ public class Program
             builder.Services.AddControllers();
 
             // Add Database Context with Connection String
-            var dbConnectionString = builder.Configuration.GetConnectionString("postgresHealthCareDB")
+            var dbConnectionString = builder.Configuration.GetConnectionString("postgresHealthCareDB_cloud")
                 ?? throw new InvalidOperationException("Connection string 'postgresHealthCareDB' not found.");
 
             builder.Services.AddDbContext<postgresHealthCareDbContext>(options =>
@@ -51,10 +51,10 @@ public class Program
        {
            EndPoints =
            {
-            $"{builder.Configuration["ConnectionStrings:redis:host"]}:{builder.Configuration["ConnectionStrings:redis:port"]}"
+            $"{builder.Configuration["ConnectionStrings:redis_cloud:host"]}:{builder.Configuration["ConnectionStrings:redis_cloud:port"]}"
            },
-           User = builder.Configuration["ConnectionStrings:redis:username"],
-           Password = builder.Configuration["ConnectionStrings:redis:password"],
+           User = builder.Configuration["ConnectionStrings:redis_cloud:username"],
+           Password = builder.Configuration["ConnectionStrings:redis_cloud:password"],
        };
 
        return ConnectionMultiplexer.Connect(redisConfig);
