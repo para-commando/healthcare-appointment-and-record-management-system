@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prescription Template</title>
+    <style>
+        /* Base styles for the page */
+        body {
+            font-family: Arial, sans-serif; /* Font style */
+            margin: 0;
+            padding: 0;
+            background-color: #e6f5f7; /* Light blue to match the prescription's color */
+        }
+
+        /* Container for the prescription layout */
+        .prescription-container {
+            width: 500px;
+            margin: 20px auto; /* Center the container */
+            padding: 20px;
+            background: linear-gradient(to bottom, #0288d1, #e6f5f7); /* Gradient background */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+            color: #000; /* Text color */
+            position: relative;
+        }
+
+        /* Header section for logo and doctor's name */
+        .header {
+            text-align: center;
+            padding: 10px;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Logo styling */
+        .logo {
+          border-radius:12px;
+            width: 60px;
+            height: 60px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px; /* Main heading font size */
+        }
+
+        .header p {
+            margin: 5px 0;
+            font-size: 14px; /* Subheading font size */
+        }
+
+        /* Content section styling */
+        .content {
+            font-size: 12px; /* Subheading font size */
+            margin: 20px 0;
+            color: #000; /* Ensure text is visible */
+        }
+
+        /* Footer section styling */
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #fff;
+            background-color: #0288d1;
+            padding: 1px;
+            border-radius:10px 10px 10px 10px;
+        }
+
+        /* Styling for Rx symbol */
+        .rx {
+            font-size: 20px;
+            font-weight: bold;
+            color: #f6fcff;
+            text-align: center;
+        }
+
+        /* Horizontal line */
+        .line {
+            margin: 10px 0;
+            border-top: 3px solid #fff0f0;
+        }
+        .doctor-details{
+          margin-left: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="prescription-container">
+        <!-- Header with logo and doctor's name -->
+        <div class="header">
+            <img src="v987-18a.jpg" alt="Logo" class="logo"> <!-- Placeholder for logo -->
+            <div class="doctor-details">
+                <h1>Dr. Para-commando</h1> <!-- Placeholder for doctor's name -->
+                <p>Specialization: Combat</p> <!-- Placeholder for doctor's specialty -->
+            </div>
+        </div>
+
+        <!-- Content section -->
+        <div class="content">
+            <p>S. No: ___________ &nbsp;&nbsp;&nbsp;&nbsp; Date: ___________ &nbsp;&nbsp;&nbsp;&nbsp; Patient's Name: _____________________</p>
+            <p>Patient's Name: ______________&nbsp;&nbsp;&nbsp;&nbsp; Contact No.: __________&nbsp;&nbsp;&nbsp;&nbsp; Age: ___ &nbsp;&nbsp; Gender: ___</p>
+            <p></p>
+
+            <!-- Rx symbol -->
+            <div class="rx">Rx:</div>
+            <div class="line"></div>
+            <p>Medicine: ______________ &nbsp;&nbsp; Duration: ____ <input type="checkbox"> Days <input type="checkbox"> Weeks <input type="checkbox"> Months</p>
+            <p> Frequency: _____ &nbsp;&nbsp; Times of day: <input type="checkbox"> Morning <input type="checkbox"> Noon  <input type="checkbox"> Evening <input type="checkbox"> Night</p>
+            <p> <input type="checkbox"> Before Food <input type="checkbox"> After Food</p>
+
+
+            <div class="line"></div>
+
+            <p>Medicine: ______________ &nbsp;&nbsp; Duration: ____ <input type="checkbox"> Days <input type="checkbox"> Weeks <input type="checkbox"> Months</p>
+            <p> Frequency: _____ &nbsp;&nbsp; Times of day: <input type="checkbox"> Morning <input type="checkbox"> Noon  <input type="checkbox"> Evening <input type="checkbox"> Night</p>
+            <p> <input type="checkbox"> Before Food <input type="checkbox"> After Food</p>
+
+
+            <div class="line"></div>
+            <p>Medicine: ______________ &nbsp;&nbsp; Duration: ____ <input type="checkbox"> Days <input type="checkbox"> Weeks <input type="checkbox"> Months</p>
+            <p> Frequency: _____ &nbsp;&nbsp; Times of day: <input type="checkbox"> Morning <input type="checkbox"> Noon  <input type="checkbox"> Evening <input type="checkbox"> Night</p>
+            <p> <input type="checkbox"> Before Food <input type="checkbox"> After Food</p>
+
+
+            <div class="line"></div>
+            <p>Doctor's Signature: __________________________________</p>
+        </div>
+
+        <!-- Footer section -->
+        <div class="footer">
+            <p>Medical Care Clinic Name</p>
+            <p>123, Lorem Ipsum St. | +00 123 456 789</p>
+        </div>
+    </div>
+</body>
+</html>
