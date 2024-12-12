@@ -3,6 +3,8 @@ using clinical_data_grid.apis.extensions;
 using clinical_data_grid.apis.services;
 using clinical_data_grid.database;
 using clinical_data_grid.database.extensions;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 
@@ -17,6 +19,11 @@ public class Program
             {
                 options.ListenAnyIP(5001);
             });
+            // jwt authentication custom extension
+            builder.ConfigureJwtAuthenticationCustExt();
+
+            // jwt authorization custom extension
+            builder.ConfigureJwtAuthorizationCustExt();
 
             // making the logger object unique to every http request
             builder.Services.AddScoped(typeof(CustomLogger<>));
@@ -33,7 +40,13 @@ public class Program
             builder.AddSwaggerGenCustExt();
 
             // Add Controllers
-            builder.Services.AddControllers();
+            builder.Services.AddControllers(options =>
+                {
+                    var defaultPolicy = new AuthorizationPolicyBuilder()
+                        .RequireAuthenticatedUser()
+                        .Build();
+                    options.Filters.Add(new AuthorizeFilter(defaultPolicy));
+                });
 
             // Add Database Context with Connection String
             var dbConnectionString = builder.Configuration.GetConnectionString("postgresHealthCareDB_cloud")
@@ -61,20 +74,16 @@ public class Program
    });
             builder.Services.AddTransient<AuthService>();
 
-            // jwt authentication custom extension
-            builder.ConfigureJwtAuthenticationCustExt();
 
-            // jwt authorization custom extension
-            builder.ConfigureJwtAuthorizationCustExt();
 
             // Build the application
             var app = builder.Build();
 
-            // Map Controllers
-            app.MapControllers();
-
             app.UseAuthentication();
             app.UseAuthorization();
+
+            // Map Controllers
+            app.MapControllers();
 
             // Use Swagger Extensions
 
@@ -82,6 +91,7 @@ public class Program
 
             // Run pending db migrations on startup
             app.MigrateDbContextOne();
+            
             // Start the application
             app.Run();
         }
