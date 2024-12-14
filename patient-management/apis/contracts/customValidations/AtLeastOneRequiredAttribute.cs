@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-namespace clinical_data_grid.contracts.customValidations;
+namespace patient_management.contracts.customValidations;
 
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
 public class AtLeastOneRequiredAttribute : ValidationAttribute

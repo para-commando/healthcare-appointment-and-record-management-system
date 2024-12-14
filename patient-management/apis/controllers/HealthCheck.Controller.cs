@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using clinical_data_grid.database;
-using clinical_data_grid.apis.services;
-using clinical_data_grid.database.models;
+using patient_management.database;
+using patient_management.apis.services;
+using patient_management.database.models;
 using Microsoft.AspNetCore.Authorization;
-namespace clinical_data_grid.controllers;
+namespace patient_management.controllers;
 
 [ApiController]
 [Route("api/[controller]")]

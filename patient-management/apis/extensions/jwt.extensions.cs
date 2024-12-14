@@ -3,7 +3,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-namespace clinical_data_grid.apis.extensions;
+namespace patient_management.apis.extensions;
 
 public static class JwtExtensions
 {
@@ -100,7 +100,8 @@ public static class JwtExtensions
         policy.RequireAssertion(context =>
       {
         // Custom logic to Check if the user's email ends with "@company.com"
-        return context.User.HasClaim(c => {
+        return context.User.HasClaim(c =>
+        {
 
           return c.Type == "officeMailId" && c.Value.EndsWith("@company.com");
         }
