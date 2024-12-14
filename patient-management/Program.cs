@@ -1,7 +1,7 @@
-using clinical_data_grid.apis.extensions;
-using clinical_data_grid.apis.services;
-using clinical_data_grid.database;
-using clinical_data_grid.database.extensions;
+using patient_management.apis.extensions;
+using patient_management.apis.services;
+using patient_management.database;
+using patient_management.database.extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;

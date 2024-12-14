@@ -1,4 +1,4 @@
-namespace clinical_data_grid.database.models;
+namespace patient_management.database.contracts;
 
 using System.ComponentModel.DataAnnotations; // For validation attributes
 
