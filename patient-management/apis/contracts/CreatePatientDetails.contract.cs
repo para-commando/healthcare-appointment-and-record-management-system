@@ -22,7 +22,6 @@ public record CreatePatientDetailsValidation
   public string PatientUniqueId { get; init; } = string.Empty;
 
   [Required(ErrorMessage = "Patient registration date is required.")]
-  public DateTime PatientRegistrationDate { get; init; }
-
-  public DateTime PatientLatestDateOfVisit { get; init; }
+  public DateOnly PatientRegistrationDate { get; init; }
+  public DateOnly PatientLatestDateOfVisit { get; init; }
 }

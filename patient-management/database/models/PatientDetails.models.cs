@@ -1,8 +1,8 @@
 namespace patient_management.database.models;
 using System.ComponentModel.DataAnnotations; // For validation attributes
 using System.ComponentModel.DataAnnotations.Schema; // For database-specific annotations
-
-
+using System.Text.Json.Serialization;
+using patient_management.database.validations;
 [Table("patient-details")]
 public class PatientDetails
 {
@@ -27,10 +27,11 @@ public class PatientDetails
     [Column("patient_unique_id")]
     public required string PatientUniqueId { get; set; } = string.Empty;
 
-     [Column("patient_registration_date")]
-    public DateTime PatientRegistrationDate { get; set; }
+    [Required]
+    [Column("patient_registration_date")]
+    public DateOnly PatientRegistrationDate { get; set; }
 
     [Column("patient_latest_date_of_visit")]
-    public DateTime PatientLatestDateOfVisit { get; set; }
+    public DateOnly PatientLatestDateOfVisit { get; set; }
 
 }
