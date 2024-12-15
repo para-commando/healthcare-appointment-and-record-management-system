@@ -7,7 +7,7 @@ using patient_management.database;
 using patient_management.database.contracts;
 using Microsoft.AspNetCore.Authorization;
 using patient_management.apis.extensions;
-
+using patient_management.database.extensions;
 [ApiController]
 [Route("[controller]")]
 public class PatientDetailsController : ControllerBase
@@ -38,19 +38,24 @@ public class PatientDetailsController : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> GetPatientDetailById([FromBody] SearchPatientDetails reqBody)
     {
-        
-        var patient = await _context.PatientDetails.FindAsync(PatientContact);
-        if (patient == null)
-        {
-            return NotFound();
-        }
 
-        return Ok(patient);
+
+        Console.WriteLine(reqBody);
+ List<PatientDetails>? result = await _context.PatientDetails.ApplyFilters(reqBody)
+            .ToListAsync();
+            if (result?.Count == 0)
+            {
+                // _logger.Log(LogLevel.Warning, "Data not found");
+
+                return NotFound("Data not found");
+            }
+
+            return Ok(result);
     }
 
     // Get all patient details
     [HttpGet("get-all-patient-details")]
-     [AllowAnonymous]
+    [AllowAnonymous]
     public async Task<IActionResult> GetAllPatientDetails()
     {
         var patients = await _context.PatientDetails.ToListAsync();
