@@ -1,82 +1,92 @@
 
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using patient_management.database.contracts;
 namespace patient_management.database.extensions;
 
 public static class QueryExtensions
 {
   public static IQueryable<T> ApplyFilters<T>(this IQueryable<T> query, object filter)
   {
-    var filterProperties = filter.GetType().GetProperties();
-    var equalityCheckProperties = new List<string> {"PatientName",
-  "PatientUniqueId",
-  "PatientContact",
-  "PatientRegistrationDate",
-  "PatientLatestDateOfVisit"};
-    var lessThanCheckProperties = new List<string> {
-  "PatientRegDateLessThan",
-  "PatientLatestDateOfVisitLessThan",
-   };
-    var greaterThanCheckProperties = new List<string> {
-  "PatientRegDateGreaterThan",
-  "PatientLatestDateOfVisitGreaterThan",
-  };
-    var rangeCheckProperties = new List<string> {
-  "patientRegRange",
-  "patientLatestVisitRange",
-  };
-    foreach (var property in filterProperties)
+    // used function delegates to declare type of the key of this dictionary, note that IQueryable<T> is the return type hence it is added again at the end of the delegate function signature
+    var propertyOperations = new Dictionary<string, Func<IQueryable<T>, string, object, IQueryable<T>>>
     {
-      object incomingObject = new { StartDate = new DateOnly(2024, 12, 14), EndDate = new DateOnly(2024, 12, 15) };
+        // Equality checks
+        { "PatientName", (q, prop, val) => q.Where(e => EF.Property<string>(e, prop).Contains(val.ToString().Trim())) },
+        { "PatientUniqueId", (q, prop, val) => q.Where(e => EF.Property<string>(e, prop).Contains(val.ToString().Trim())) },
+        { "PatientContact", (q, prop, val) => q.Where(e => EF.Property<string>(e, prop).Contains(val.ToString().Trim())) },
 
+        // Less-than checks
+        { "PatientRegDateLessThan", (q, prop, val) => q.Where(e => EF.Property<DateOnly>(e, "PatientRegistrationDate") <= (DateOnly)val) },
+        { "PatientLatestDateOfVisitLessThan", (q, prop, val) => q.Where(e => EF.Property<DateOnly>(e, "PatientLatestDateOfVisit") <= (DateOnly)val) },
+
+        // Greater-than checks
+        { "PatientRegDateGreaterThan", (q, prop, val) => q.Where(e => EF.Property<DateOnly>(e, "PatientRegistrationDate") >= (DateOnly)val) },
+        { "PatientLatestDateOfVisitGreaterThan", (q, prop, val) => q.Where(e => EF.Property<DateOnly>(e, "PatientLatestDateOfVisit") >= (DateOnly)val) },
+
+        // Range checks
+        { "PatientRegRange", (q, prop, val) =>
+            {
+                var range = (PatientRegRange)val;
+                return q.Where(e => EF.Property<DateOnly>(e, "PatientRegistrationDate") >= range.StartDate &&
+                                    EF.Property<DateOnly>(e, "PatientRegistrationDate") <= range.EndDate);
+            }
+        },
+        { "PatientLatestVisitRange", (q, prop, val) =>
+            {
+                var range = (PatientLatestVisitDateRange)val;
+                return q.Where(e => EF.Property<DateOnly>(e, "PatientLatestDateOfVisit") >= range.StartDate &&
+                                    EF.Property<DateOnly>(e, "PatientLatestDateOfVisit") <= range.EndDate);
+            }
+        }
+    };
+
+    // Iterate over filter properties using reflections
+    var allFilterProperties = filter.GetType().GetProperties();
+    foreach (var property in allFilterProperties)
+    {
       var value = property.GetValue(filter);
       if (value != null && !string.IsNullOrEmpty(value.ToString()))
       {
-        if (equalityCheckProperties
-    .FirstOrDefault(stringToCheck => stringToCheck.Contains(property.Name)) != null)
-        { query = query.Where(e => EF.Property<string>(e, property.Name).Contains(value.ToString().Trim())); }
-
-        else if (lessThanCheckProperties
-     .FirstOrDefault(stringToCheck => stringToCheck.Contains(property.Name)) != null && value is DateOnly dateTimeValue)
+        // TryGetValue returns true if the Dictionary<TKey, TValue> contains an element with the specified key; otherwise, false.
+        if (propertyOperations.TryGetValue(property.Name, out var operation))
         {
-          if (property.Name == "PatientRegDateLessThan")
-          {
-            query = query.Where(e => EF.Property<DateOnly>(e, "PatientRegistrationDate") <= dateTimeValue);
-          }
-          else if (property.Name == "patientLatestDateOfVisitLessThan")
-          {
-            query = query.Where(e => EF.Property<DateOnly>(e, "PatientLatestDateOfVisit") <= dateTimeValue);
-          }
-        }
-        else if (greaterThanCheckProperties
-    .FirstOrDefault(stringToCheck => stringToCheck.Contains(property.Name)) != null && value is DateOnly dateTimeValue2)
-        {
-          if (property.Name == "patientRegDateGreaterThan")
-          {
-            query = query.Where(e => EF.Property<DateOnly>(e, "PatientRegistrationDate") <= dateTimeValue2);
-          }
-          else if (property.Name == "patientLatestDateOfVisitGreaterThan")
-          {
-            query = query.Where(e => EF.Property<DateOnly>(e, "PatientLatestDateOfVisit") <= dateTimeValue2);
-          }
-        }
-        else if (rangeCheckProperties
-    .FirstOrDefault(stringToCheck => stringToCheck.Contains(property.Name)) != null && value is { StartDate: DateOnly startDate, EndDate: DateOnly })
-        {
-          if (property.Name == "patientRegRange")
-          {
-            query = query.Where(e => EF.Property<DateOnly>(e, "PatientRegistrationDate") <= value.StartDate && EF.Property<DateOnly>(e, "PatientRegistrationDate") >= value.EndDate);
-          }
-          else if (property.Name == "patientLatestVisitRange")
-          {
-            query = query.Where(e => EF.Property<DateOnly>(e, "PatientLatestDateOfVisit") <= value.StartDate && EF.Property<DateOnly>(e, "PatientLatestDateOfVisit") >= value.EndDate);
-          }
+          query = operation(query, property.Name, value);
         }
       }
+    }
+    // Apply limit if provided
+    if (filter.GetType().GetProperty("Limit") is PropertyInfo limitProperty)
+    {
+      var limitValue = limitProperty.GetValue(filter);
+      if (limitValue is int limit && limit > 0)
+      {
+        query = query.Take(limit);
+      }
+    }
+
+    if (filter.GetType().GetProperty("SortBy") is PropertyInfo sortByProperty)
+    {
+      var sortByValue = sortByProperty.GetValue(filter)?.ToString();
+      if (!string.IsNullOrEmpty(sortByValue))
+      {
+        var sortDirection = "asc"; // Default to ascending
+
+        if (sortByValue == "desc")
+        {
+          sortDirection = "desc";
+          query = query.OrderByDescending(e =>e);
+
+        }
+        else
+        {
+          query = query.OrderBy(e => e);
+        }
 
 
-
+      }
     }
     return query;
   }
- 
+
 }

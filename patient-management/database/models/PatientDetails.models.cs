@@ -1,8 +1,6 @@
 namespace patient_management.database.models;
 using System.ComponentModel.DataAnnotations; // For validation attributes
 using System.ComponentModel.DataAnnotations.Schema; // For database-specific annotations
-using System.Text.Json.Serialization;
-using patient_management.database.validations;
 [Table("patient-details")]
 public class PatientDetails
 {
