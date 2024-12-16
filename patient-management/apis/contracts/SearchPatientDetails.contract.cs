@@ -31,6 +31,10 @@ public record SearchPatientDetails
   public PatientRegRange? PatientRegRange { get; init; }
 
   public PatientLatestVisitDateRange? PatientLatestVisitRange { get; init; }
+
+  public int? Limit { get; init; }
+
+  public string? SortBy { get; init; }
 }
 
 

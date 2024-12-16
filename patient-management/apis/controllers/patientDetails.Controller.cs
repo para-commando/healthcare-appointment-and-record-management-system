@@ -33,27 +33,23 @@ public class PatientDetailsController : ControllerBase
         return CreatedAtAction(nameof(GetPatientDetailById), new { id = patientEntity.Id }, patientEntity);
     }
 
-    // Get a patient detail by PatientContact
     [HttpPost("get-patient-details")]
     [AllowAnonymous]
     public async Task<IActionResult> GetPatientDetailById([FromBody] SearchPatientDetails reqBody)
     {
-
-
         Console.WriteLine(reqBody);
- List<PatientDetails>? result = await _context.PatientDetails.ApplyFilters(reqBody)
-            .ToListAsync();
-            if (result?.Count == 0)
-            {
-                // _logger.Log(LogLevel.Warning, "Data not found");
+        List<PatientDetails>? result = await _context.PatientDetails.ApplyFilters(reqBody)
+                   .ToListAsync();
+        if (result?.Count == 0)
+        {
+            // _logger.Log(LogLevel.Warning, "Data not found");
+            return NotFound("Data not found");
+        }
 
-                return NotFound("Data not found");
-            }
-
-            return Ok(result);
+        return Ok(result);
     }
 
-    // Get all patient details
+
     [HttpGet("get-all-patient-details")]
     [AllowAnonymous]
     public async Task<IActionResult> GetAllPatientDetails()
@@ -62,5 +58,58 @@ public class PatientDetailsController : ControllerBase
         return Ok(patients);
     }
 
+    [HttpPut("update-patient-details/{id}")]
+    [AllowAnonymous]
 
+    public async Task<IActionResult> UpdatePatientDetails(int id, [FromBody] UpdatePatientDetails updatedDetails)
+    {
+        var existingPatient = await _context.PatientDetails.FindAsync(id);
+        if (existingPatient == null)
+        {
+            return NotFound($"Patient with ID {id} not found.");
+        }
+
+        var properties = updatedDetails.GetType().GetProperties();
+
+        foreach (var property in properties)
+        {
+            var updatedValue = property.GetValue(updatedDetails);
+
+           if (updatedValue != null)
+            {
+                // Ensure the type matches and the property is writable
+                var targetProperty = typeof(PatientDetails).GetProperty(property.Name);
+                // checking if the property is writable and the type of property in PatientDetails model from where existingPatient data is taken is matching to the one sent in the request payload
+                if (targetProperty != null && targetProperty.CanWrite &&
+                    targetProperty.PropertyType.IsAssignableFrom(property.PropertyType))
+                {
+                    targetProperty.SetValue(existingPatient, updatedValue);
+                }
+            }
+        }
+
+        // Save changes to the database
+        await _context.SaveChangesAsync();
+
+        return Ok(existingPatient);
+    }
+
+
+    // Delete Patient Details by ID
+    [HttpDelete("delete-patient-details/{id}")]
+    [AllowAnonymous]
+
+    public async Task<IActionResult> DeletePatientDetails(int id)
+    {
+        var patientToDelete = await _context.PatientDetails.FindAsync(id);
+        if (patientToDelete == null)
+        {
+            return NotFound($"Patient with ID {id} not found.");
+        }
+
+        _context.PatientDetails.Remove(patientToDelete);
+        await _context.SaveChangesAsync();
+
+        return Ok($"Patient with ID {id} deleted successfully.");
+    }
 }
