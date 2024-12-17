@@ -11,8 +11,8 @@ using clinical_data_grid.database;
 namespace clinical_data_grid.database.migrations
 {
     [DbContext(typeof(postgresHealthCareDbContext))]
-    [Migration("20241204090209_diseases_and_associated_tables")]
-    partial class diseases_and_associated_tables
+    [Migration("20241212171526_seed_clinical_health_static_data")]
+    partial class seed_clinical_health_static_data
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,47 @@ namespace clinical_data_grid.database.migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("clinical_data_grid.database.models.ClinicalHealthStaticData", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Composition")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("composition");
+
+                    b.Property<string>("Disease")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)")
+                        .HasColumnName("disease");
+
+                    b.Property<string>("MedicineName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)")
+                        .HasColumnName("medicine_name");
+
+                    b.Property<string>("SideEffects")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("side_effects");
+
+                    b.Property<string>("Uses")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("uses");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("clinical_health_static_data");
+                });
 
             modelBuilder.Entity("clinical_data_grid.database.models.Diseases", b =>
                 {

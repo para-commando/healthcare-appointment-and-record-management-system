@@ -1,10 +1,10 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using clinical_data_grid.database.models;
+using appointment_details.apis.contracts;
 using Microsoft.IdentityModel.Tokens;
 
-namespace clinical_data_grid.apis.services;
+namespace appointment_details.apis.services;
 
 public class AuthService
 {

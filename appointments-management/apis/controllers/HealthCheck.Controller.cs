@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using clinical_data_grid.database;
-using clinical_data_grid.apis.services;
-using clinical_data_grid.database.models;
+using appointment_details.database;
+using appointment_details.apis.services;
+using appointment_details.database.models;
 using Microsoft.AspNetCore.Authorization;
-namespace clinical_data_grid.controllers;
+using appointment_details.apis.contracts;
+namespace appointment_details.controllers;
 
 [ApiController]
 [Route("api/[controller]")]
