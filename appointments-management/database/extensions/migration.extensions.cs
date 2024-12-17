@@ -1,6 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
-namespace clinical_data_grid.database.extensions;
+namespace appointment_details.database.extensions;
 
 public static class MigrationExtensions
 {

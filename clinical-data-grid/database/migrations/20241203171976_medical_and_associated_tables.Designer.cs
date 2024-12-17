@@ -11,7 +11,7 @@ using clinical_data_grid.database;
 namespace clinical_data_grid.database.migrations
 {
     [DbContext(typeof(postgresHealthCareDbContext))]
-    [Migration("20241203053556_medical_and_associated_tables")]
+    [Migration("20241203171976_medical_and_associated_tables")]
     partial class medical_and_associated_tables
     {
         /// <inheritdoc />

@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations; // For validation attributes
 public record SearchPatientDetails
 {
 
+  public int? Id { get; init; }
+
   [MaxLength(255, ErrorMessage = "Patient name cannot exceed 255 characters.")]
   public string? PatientName { get; init; } = string.Empty;
 

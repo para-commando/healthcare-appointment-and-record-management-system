@@ -1,13 +1,14 @@
-using clinical_data_grid.database.models;
+using appointment_details.database.models;
 using Microsoft.EntityFrameworkCore;
-using clinical_data_grid.database.extensions;
-namespace clinical_data_grid.database;
+using appointment_details.database.extensions;
+namespace appointment_details.database;
 public class postgresHealthCareDbContext : DbContext
 {
 
     public postgresHealthCareDbContext(DbContextOptions<postgresHealthCareDbContext> options, ILogger<postgresHealthCareDbContext> logger)
         : base(options) { }
 
+    public DbSet<AppointmentDetails> AppointmentDetails { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

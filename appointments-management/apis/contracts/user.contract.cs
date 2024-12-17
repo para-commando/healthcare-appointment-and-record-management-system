@@ -1,4 +1,4 @@
-namespace clinical_data_grid.database.models;
+namespace appointment_details.apis.contracts;
 
 public record User(
     int Id,

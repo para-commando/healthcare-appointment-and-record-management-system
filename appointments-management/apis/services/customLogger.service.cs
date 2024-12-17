@@ -1,4 +1,4 @@
-namespace clinical_data_grid.apis.services;
+namespace appointment_details.apis.services;
 public class CustomLogger<T>
 {
   private readonly ILogger<T> _logger;

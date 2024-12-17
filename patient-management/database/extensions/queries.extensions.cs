@@ -12,6 +12,7 @@ public static class QueryExtensions
     var propertyOperations = new Dictionary<string, Func<IQueryable<T>, string, object, IQueryable<T>>>
     {
         // Equality checks
+        { "Id", (q, prop, val) => q.Where(e => EF.Property<string>(e, prop).Equals(val)) },
         { "PatientName", (q, prop, val) => q.Where(e => EF.Property<string>(e, prop).Contains(val.ToString().Trim())) },
         { "PatientUniqueId", (q, prop, val) => q.Where(e => EF.Property<string>(e, prop).Contains(val.ToString().Trim())) },
         { "PatientContact", (q, prop, val) => q.Where(e => EF.Property<string>(e, prop).Contains(val.ToString().Trim())) },
