@@ -1,6 +1,6 @@
 
 using appointment_details.database.models;
-using patient_management.apis.extensions;
+using appointments_management.apis.extensions;
 using Microsoft.AspNetCore.Mvc;
 using appointment_details.apis.contracts;
 using appointment_details.database;
@@ -9,6 +9,9 @@ using System.Text.Json;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using RestSharp.Authenticators;
+using appointments_management.database.contracts;
+using appointment_details.database.extensions;
+using Microsoft.EntityFrameworkCore;
 [ApiController]
 [Route("[controller]")]
 public class AppointmentsController : ControllerBase
@@ -20,6 +23,30 @@ public class AppointmentsController : ControllerBase
         _context = context;
     }
 
+    [HttpPost("find-appointments")]
+    [AllowAnonymous]
+    public async Task<IActionResult> FindAppointments([FromBody] SearchAppointments searchAppointments)
+    {
+        try
+        {
+            Console.WriteLine(searchAppointments);
+            List<AppointmentDetails>? result = await _context.AppointmentDetails.ApplyFilters(searchAppointments)
+                       .ToListAsync();
+            if (result?.Count == 0)
+            {
+                // _logger.Log(LogLevel.Warning, "Data not found");
+                return NotFound("Data not found");
+            }
+
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Exception occurred: {ex.Message}");
+            return StatusCode(500, new { Message = "An error occurred while Finding the appointments." });
+        }
+
+    }
 
     [HttpPost("book-appointment")]
     [AllowAnonymous]
