@@ -1,7 +1,6 @@
 
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using staff_management.database.contracts;
 namespace staff_management.database.extensions;
 
 public static class QueryExtensions
@@ -25,21 +24,6 @@ public static class QueryExtensions
         { "PatientRegDateGreaterThan", (q, prop, val) => q.Where(e => EF.Property<DateOnly>(e, "PatientRegistrationDate") >= (DateOnly)val) },
         { "PatientLatestDateOfVisitGreaterThan", (q, prop, val) => q.Where(e => EF.Property<DateOnly>(e, "PatientLatestDateOfVisit") >= (DateOnly)val) },
 
-        // Range checks
-        { "PatientRegRange", (q, prop, val) =>
-            {
-                var range = (PatientRegRange)val;
-                return q.Where(e => EF.Property<DateOnly>(e, "PatientRegistrationDate") >= range.StartDate &&
-                                    EF.Property<DateOnly>(e, "PatientRegistrationDate") <= range.EndDate);
-            }
-        },
-        { "PatientLatestVisitRange", (q, prop, val) =>
-            {
-                var range = (PatientLatestVisitDateRange)val;
-                return q.Where(e => EF.Property<DateOnly>(e, "PatientLatestDateOfVisit") >= range.StartDate &&
-                                    EF.Property<DateOnly>(e, "PatientLatestDateOfVisit") <= range.EndDate);
-            }
-        }
     };
 
     // Iterate over filter properties using reflections
