@@ -8,7 +8,7 @@ public class postgresHealthCareDbContext : DbContext
     public postgresHealthCareDbContext(DbContextOptions<postgresHealthCareDbContext> options, ILogger<postgresHealthCareDbContext> logger)
         : base(options) { }
 
-    public DbSet<PatientDetails> PatientDetails { get; set; }
+    public DbSet<DoctorDetails> DoctorDetails { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
