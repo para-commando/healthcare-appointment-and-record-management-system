@@ -3,7 +3,7 @@ using appointment_details.apis.contracts;
 using appointment_details.database.models;
 
 
-namespace patient_management.apis.extensions;
+namespace appointments_management.apis.extensions;
 
 public static class ContractsExtensions
 {
