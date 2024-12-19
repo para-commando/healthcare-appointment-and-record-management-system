@@ -55,21 +55,27 @@ public class AppointmentsController : ControllerBase
 
         try
         {
-            var client = new RestClient("http://localhost:5004");
-            var request = new RestRequest("PatientDetails/get-patient-details", Method.Post)
+
+            var patientApiClient = new RestClient("http://localhost:5004");
+            var doctorApiClient = new RestClient("http://localhost:5008");
+
+            var patientDetailsApiRequest = new RestRequest("PatientDetails/get-patient-details", Method.Post)
                 .AddHeader("Content-Type", "application/json")
                 .AddJsonBody(new { id = appointmentDetails.PatientId });
 
+            var doctorDetailsApiRequest = new RestRequest("DoctorDetails/get-doctor-details", Method.Post)
+                          .AddHeader("Content-Type", "application/json")
+                          .AddJsonBody(new { id = appointmentDetails.DoctorId });
 
-            var response = await client.ExecuteAsync(request);
-            Console.WriteLine(response.Content);
+            var patientDetailsApiResponse = await patientApiClient.ExecuteAsync(patientDetailsApiRequest);
 
-            if (!response.IsSuccessful)
+            var doctorDetailsApiResponse = await doctorApiClient.ExecuteAsync(doctorDetailsApiRequest);
+
+
+            if (!patientDetailsApiResponse.IsSuccessful || !doctorDetailsApiResponse.IsSuccessful)
             {
-                Console.WriteLine($"Request failed: {response.StatusCode} - {response.ErrorMessage}");
-                return StatusCode((int)response.StatusCode, new { Message = "No patient found for the given id" });
+                 return StatusCode(500, new { Message = "No patient/doctor found for the given id, please check doctor/patient id" });
             }
-            Console.WriteLine($"Response Content: {response.Content}");
 
             // 4. Map Appointment Entity and Save
             var appointmentEntityObj = appointmentDetails.ReturnAnEntityObject();
@@ -102,21 +108,26 @@ public class AppointmentsController : ControllerBase
                 return NotFound($"Appointment with ID {id} not found.");
             }
 
-            var client = new RestClient("http://localhost:5004");
-            var request = new RestRequest("PatientDetails/get-patient-details", Method.Post)
+            var patientApiClient = new RestClient("http://localhost:5004");
+            var doctorApiClient = new RestClient("http://localhost:5008");
+
+            var patientDetailsApiRequest = new RestRequest("PatientDetails/get-patient-details", Method.Post)
                 .AddHeader("Content-Type", "application/json")
                 .AddJsonBody(new { id = updateAppointmentDetails.PatientId });
 
+            var doctorDetailsApiRequest = new RestRequest("DoctorDetails/get-doctor-details", Method.Post)
+                          .AddHeader("Content-Type", "application/json")
+                          .AddJsonBody(new { id = updateAppointmentDetails.DoctorId });
 
-            var response = await client.ExecuteAsync(request);
-            Console.WriteLine(response.Content);
+            var patientDetailsApiResponse = await patientApiClient.ExecuteAsync(patientDetailsApiRequest);
 
-            if (!response.IsSuccessful)
+            var doctorDetailsApiResponse = await doctorApiClient.ExecuteAsync(doctorDetailsApiRequest);
+
+
+            if (!patientDetailsApiResponse.IsSuccessful || !doctorDetailsApiResponse.IsSuccessful)
             {
-                Console.WriteLine($"Request failed: {response.StatusCode} - {response.ErrorMessage}");
-                return StatusCode((int)response.StatusCode, new { Message = "No patient found for the given id" });
+                 return StatusCode(500, new { Message = "No patient/doctor found for the given id, please check doctor/patient id" });
             }
-            Console.WriteLine($"Response Content: {response.Content}");
 
             var properties = updateAppointmentDetails.GetType().GetProperties();
 
