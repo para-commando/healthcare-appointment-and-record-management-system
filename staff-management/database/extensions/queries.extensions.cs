@@ -1,6 +1,7 @@
 
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using staff_management.database.contracts;
 namespace staff_management.database.extensions;
 
 public static class QueryExtensions
@@ -12,18 +13,20 @@ public static class QueryExtensions
     {
         // Equality checks
         { "Id", (q, prop, val) => q.Where(e => EF.Property<string>(e, prop).Equals(val)) },
-        { "PatientName", (q, prop, val) => q.Where(e => EF.Property<string>(e, prop).Contains(val.ToString().Trim())) },
-        { "PatientUniqueId", (q, prop, val) => q.Where(e => EF.Property<string>(e, prop).Contains(val.ToString().Trim())) },
-        { "PatientContact", (q, prop, val) => q.Where(e => EF.Property<string>(e, prop).Contains(val.ToString().Trim())) },
-
-        // Less-than checks
-        { "PatientRegDateLessThan", (q, prop, val) => q.Where(e => EF.Property<DateOnly>(e, "PatientRegistrationDate") <= (DateOnly)val) },
-        { "PatientLatestDateOfVisitLessThan", (q, prop, val) => q.Where(e => EF.Property<DateOnly>(e, "PatientLatestDateOfVisit") <= (DateOnly)val) },
-
-        // Greater-than checks
-        { "PatientRegDateGreaterThan", (q, prop, val) => q.Where(e => EF.Property<DateOnly>(e, "PatientRegistrationDate") >= (DateOnly)val) },
-        { "PatientLatestDateOfVisitGreaterThan", (q, prop, val) => q.Where(e => EF.Property<DateOnly>(e, "PatientLatestDateOfVisit") >= (DateOnly)val) },
-
+        { "DoctorName", (q, prop, val) => q.Where(e => EF.Property<string>(e, prop).Contains(val.ToString().Trim())) },
+        { "DoctorSpecialization", (q, prop, val) => q.Where(e => EF.Property<string>(e, prop).Contains(val.ToString().Trim())) },
+        { "DoctorAddress", (q, prop, val) => q.Where(e => EF.Property<string>(e, prop).Contains(val.ToString().Trim())) },
+        { "DoctorContact", (q, prop, val) => q.Where(e => EF.Property<string>(e, prop).Contains(val.ToString().Trim())) },{ "DoctorUniqueId", (q, prop, val) => q.Where(e => EF.Property<string>(e, prop).Contains(val.ToString().Trim())) },
+        { "DoctorDateOfJoiningLessThan", (q, prop, val) => q.Where(e => EF.Property<DateOnly>(e, "DoctorDateOfJoining") <= (DateOnly)val) },
+        { "DoctorDateOfJoiningGreaterThan", (q, prop, val) => q.Where(e => EF.Property<DateOnly>(e, "DoctorDateOfJoining") >= (DateOnly)val) },
+        { "DoctorDateOfJoining", (q, prop, val) => q.Where(e => EF.Property<DateOnly>(e, "DoctorDateOfJoining").Equals((DateOnly)val)) },
+   { "DoctorDateOfJoiningRange", (q, prop, val) =>
+            {
+                var range = (DoctorDateOfJoiningRange)val;
+                return q.Where(e => EF.Property<DateOnly>(e, "DoctorDateOfJoining") >= range.StartDate &&
+                                    EF.Property<DateOnly>(e, "DoctorDateOfJoining") <= range.EndDate);
+            }
+        },
     };
 
     // Iterate over filter properties using reflections
@@ -67,7 +70,6 @@ public static class QueryExtensions
         {
           query = query.OrderBy(e => e);
         }
-
 
       }
     }
