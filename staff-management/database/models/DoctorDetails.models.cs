@@ -30,7 +30,7 @@ public class DoctorDetails
     public required string DoctorUniqueId { get; set; } = string.Empty;
 
     [Required]
-    [Column("doctor_registration_date")]
+    [Column("doctor_date_of_joining")]
     public DateOnly DoctorDateOfJoining { get; set; }
 
 
