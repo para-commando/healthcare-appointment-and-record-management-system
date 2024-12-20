@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 public record CreateDoctorDetailsValidation
 {
+  
   [Required(ErrorMessage = "DoctorName is required.")]
   [MaxLength(255, ErrorMessage = "DoctorName cannot exceed 255 characters.")]
   public required string DoctorName { get; init; }
