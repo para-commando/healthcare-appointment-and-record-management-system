@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using staff_management.database;
@@ -11,9 +12,11 @@ using staff_management.database;
 namespace staffmanagement.database.migrations
 {
     [DbContext(typeof(postgresHealthCareDbContext))]
-    partial class postgresHealthCareDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241221085316_pending_migrations")]
+    partial class pending_migrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

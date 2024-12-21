@@ -41,4 +41,8 @@ public class Staff
     [MaxLength(30)]
     [Column("designation")]
     public required string Designation { get; set; } = string.Empty;
+
+    [MaxLength(50)]
+    [Column("specialization")]
+    public required string Specialization { get; set; } = string.Empty;
 }

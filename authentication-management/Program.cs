@@ -16,7 +16,7 @@ public class Program
             var builder = WebApplication.CreateBuilder(args);
             builder.WebHost.ConfigureKestrel(options =>
             {
-                options.ListenAnyIP(5008);
+                options.ListenAnyIP(5010);
             });
             // jwt authentication custom extension
             builder.ConfigureJwtAuthenticationCustExt();

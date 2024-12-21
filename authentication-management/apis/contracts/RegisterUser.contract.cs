@@ -21,27 +21,47 @@ public record RegisterUser
   [MaxLength(255, ErrorMessage = "Password cannot exceed 255 characters.")]
   public required string Password { get; init; }
 
-  private bool IsActive { get; set; } = true;
+  public bool IsActive { get; init; } = true;
 
+  [Required(ErrorMessage = "NationalUniqueId is required.")]
   [MaxLength(50)]
   public required string NationalUniqueId { get; set; } = string.Empty;
 
+  [Required(ErrorMessage = "StaffUniqueId is required.")]
   [MaxLength(50)]
   public required string StaffUniqueId { get; set; } = string.Empty;
 
-
+  [Required(ErrorMessage = "Contact is required.")]
   [MaxLength(15)]
   public required string Contact { get; set; } = string.Empty;
+
+  [Required(ErrorMessage = "DateOfBirth is required.")]
   public DateOnly DateOfBirth { get; set; }
+
+  [Required(ErrorMessage = "Email is required.")]
+  [MaxLength(200)]
   public required string Email { get; set; } = string.Empty;
 
+  [Required(ErrorMessage = "DateOfJoining is required.")]
   public DateOnly DateOfJoining { get; set; }
 
+  [Required(ErrorMessage = "Designation is required.")]
   [MaxLength(30)]
   public required string Designation { get; set; } = string.Empty;
 
+  [Required(ErrorMessage = "Address is required.")]
   [MaxLength(500)]
   public required string Address { get; set; } = string.Empty;
 
+  [Required(ErrorMessage = "IsDoctor is required.")]
+  public required bool IsDoctor { get; set; } = false;
 
+
+  [Required(ErrorMessage = "Roles is required.")]
+  public required string Roles { get; set; }
+}
+public class ValidationRequest
+{
+  public string Field { get; set; }
+  public string Value { get; set; }
 }
