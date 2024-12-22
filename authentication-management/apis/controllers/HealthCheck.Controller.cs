@@ -56,16 +56,15 @@ public class HealthCheckController : ControllerBase
     [Route("get-token")]
     public string GetToken(AuthService service)
     {
-        var user = new User(
-            1,
-            "bruno.bernardes",
-            "Bruno Bernardes",
-            "bruno@company.com",
-            "q1w2e3r4t5",
-            "IT",
-            ["developer"]);
 
-        return service.Create(user);
+        // var user = new User(
+        //     "1444554",
+        //     "bruno.bernardes",
+        //     "Surgery",
+        //     ["developer"]);
+
+        // return service.Create(user);
+        return "ddd";
     }
 
     [HttpGet]

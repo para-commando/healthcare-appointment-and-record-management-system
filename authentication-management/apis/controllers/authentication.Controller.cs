@@ -7,7 +7,10 @@ using authentication_management.database.models;
 using authentication_management.database.extensions;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
-
+using System.Text;
+using System.Security.Cryptography;
+using authentication_management.apis.services;
+ 
 [ApiController]
 [Route("[controller]")]
 public class AuthenticationController : ControllerBase
@@ -17,6 +20,54 @@ public class AuthenticationController : ControllerBase
     public AuthenticationController(postgresHealthCareDbContext context)
     {
         _context = context;
+    }
+
+    [HttpPost("login")]
+    [AllowAnonymous]
+
+    public async Task<IActionResult> Login([FromBody] LoginUser payload, AuthService service)
+    {
+
+        try
+        {
+            var authenticationExistence = await _context.Authentication.FirstOrDefaultAsync(s => s.UserName == payload.UserName);
+
+            var staffExistence = await _context.Staff.FirstOrDefaultAsync(s => s.StaffUniqueId == payload.StaffUniqueId);
+
+            if (authenticationExistence == null || staffExistence == null)
+            {
+                return BadRequest(new { message = "Invalid Username or Password" });
+            }
+
+            string[] arrValues = authenticationExistence.Password.Split(':');
+            string encryptedDbValue = arrValues[0];
+            string salt = arrValues[1];
+            byte[] saltedValue = Encoding.UTF8.GetBytes(salt + payload.Password);
+            using var hashstr = SHA256.Create();
+            byte[] hash = hashstr.ComputeHash(saltedValue);
+            string enteredValueToValidate = Convert.ToBase64String(hash);
+            var result = encryptedDbValue.Equals(enteredValueToValidate);
+
+            if (!result)
+            {
+                return BadRequest(new { message = "Invalid Username or Password" });
+            }
+            var roles = authenticationExistence.Roles.Contains(',') ? authenticationExistence.Roles.Split(',') : new string[] { authenticationExistence.Roles };
+
+            var user = new User(
+                       staffExistence.StaffUniqueId,
+                       authenticationExistence.UserName,
+                       staffExistence.Designation,
+                      roles);
+
+            return Ok(service.Create(user));
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+            throw;
+        }
+
     }
 
     [HttpPost("check-field-authenticity")]
@@ -68,6 +119,8 @@ public class AuthenticationController : ControllerBase
         });
     }
     [HttpPost("signup")]
+    [AllowAnonymous]
+
     public async Task<IActionResult> Register([FromBody] RegisterUser registerUser)
     {
         var staffExistence = await _context.Staff.FirstOrDefaultAsync(s => s.StaffUniqueId == registerUser.StaffUniqueId || s.Email == registerUser.Email || s.UniqueId == registerUser.NationalUniqueId || s.Contact == registerUser.Contact);

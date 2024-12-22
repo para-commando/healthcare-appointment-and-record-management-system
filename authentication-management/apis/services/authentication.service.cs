@@ -43,15 +43,13 @@ public class AuthService
   {
     var ci = new ClaimsIdentity();
 
-    ci.AddClaim(new Claim("id", user.Id.ToString()));
-    ci.AddClaim(new Claim(ClaimTypes.Name, user.Username));
-    ci.AddClaim(new Claim(ClaimTypes.GivenName, user.Name));
-    // if added as "email" then "emailaddress" will be assigned by default
-    ci.AddClaim(new Claim("officeMailId", user.Email));
-    ci.AddClaim(new Claim("department", user.Department));
-
+    ci.AddClaim(new Claim("id", user.StaffUniqueId.ToString()));
+    ci.AddClaim(new Claim("Username", user.Username));
+    ci.AddClaim(new Claim("Designation", user.Department));
     foreach (var role in user.Roles)
-      ci.AddClaim(new Claim(ClaimTypes.Role, role));
+    {
+      ci.AddClaim(new Claim("roles", role));
+    }
 
     return ci;
   }

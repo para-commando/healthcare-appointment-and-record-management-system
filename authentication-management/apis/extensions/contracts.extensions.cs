@@ -10,17 +10,7 @@ namespace authentication_management.apis.extensions;
 
 public static class ContractsExtensions
 {
-  private static bool ValidateEncryptedData(string valueToValidate, string valueFromDatabase)
-  {
-    string[] arrValues = valueFromDatabase.Split(':');
-    string encryptedDbValue = arrValues[0];
-    string salt = arrValues[1];
-    byte[] saltedValue = Encoding.UTF8.GetBytes(salt + valueToValidate);
-    using var hashstr = SHA256.Create();
-    byte[] hash = hashstr.ComputeHash(saltedValue);
-    string enteredValueToValidate = Convert.ToBase64String(hash);
-    return encryptedDbValue.Equals(enteredValueToValidate);
-  }
+ 
   private static string EncryptData(string valueToEncrypt)
   {
     string GenerateSalt()
