@@ -1,7 +1,7 @@
 # Base image for running the application
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 5008
+EXPOSE 5010
 
 # Build image
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
