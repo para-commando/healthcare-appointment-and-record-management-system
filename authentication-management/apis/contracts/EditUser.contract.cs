@@ -49,5 +49,6 @@ public record EditUser
   public int DoctorId { get; init; }
 
   [MaxLength(100)]
+  [RegularExpression("^(Alpha|Bravo|Charlie|Delta)(,(Alpha|Bravo|Charlie|Delta))*$", ErrorMessage = "Roles must be a comma-separated list of 'Alpha', 'Bravo', 'Charlie', or 'Delta'.")]
   public string Roles { get; set; }
 }

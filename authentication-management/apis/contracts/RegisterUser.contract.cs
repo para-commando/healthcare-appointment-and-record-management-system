@@ -58,6 +58,7 @@ public record RegisterUser
 
 
   [Required(ErrorMessage = "Roles is required.")]
+  [RegularExpression("^(Alpha|Bravo|Charlie|Delta)(,(Alpha|Bravo|Charlie|Delta))*$", ErrorMessage = "Roles must be a comma-separated list of 'Alpha', 'Bravo', 'Charlie', or 'Delta'.")]
   [MaxLength(100)]
   public required string Roles { get; set; }
 }
