@@ -4,13 +4,12 @@ using Microsoft.AspNetCore.Authorization;
 using authentication_management.apis.extensions;
 using authentication_management.database.contracts;
 using authentication_management.database.models;
-using authentication_management.database.extensions;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 using System.Text;
 using System.Security.Cryptography;
 using authentication_management.apis.services;
- 
+
 [ApiController]
 [Route("[controller]")]
 public class AuthenticationController : ControllerBase
@@ -158,6 +157,66 @@ public class AuthenticationController : ControllerBase
         _context.Authentication.Add(authentication);
         await _context.SaveChangesAsync();
         return Ok(registerUser);
+    }
+
+    [HttpPost("edit-user-profile")]
+    [AllowAnonymous]
+
+    public async Task<IActionResult> EditUserProfile([FromBody] EditUser editUser)
+    {
+        var staffExistence = await _context.Staff.FirstOrDefaultAsync(s => s.StaffUniqueId == editUser.StaffUniqueId);
+        var authenticationExistence = await _context.Authentication.FirstOrDefaultAsync(s => s.UserName == editUser.UserName);
+        if (staffExistence == null || authenticationExistence == null)
+        {
+            return BadRequest(new { message = "User not found." });
+        }
+        var targetUser = "User";
+        if (editUser.IsDoctor == true && editUser.DoctorId > 0)
+        {
+
+            var doctorApiClient = new RestClient("http://localhost:5008");
+            var doctorDetailsApiRequest = new RestRequest($"DoctorDetails/update-doctor-details/{editUser.DoctorId}", Method.Post)
+                                   .AddHeader("Content-Type", "application/json")
+                                   .AddJsonBody(new
+                                   {
+                                       DoctorName = editUser?.FullName ?? null,
+                                       DoctorSpecialization = editUser?.Specialization ?? null,
+                                       DoctorContact = editUser?.Contact ?? null,
+                                       DoctorAddress = editUser?.Address ?? null,
+                                       DoctorUniqueId = editUser?.NationalUniqueId ?? null,
+                                       DoctorDateOfJoining = editUser?.DateOfJoining ?? null
+                                   });
+            var doctorDetailsApiResponse = await doctorApiClient.ExecuteAsync(doctorDetailsApiRequest);
+            if (!doctorDetailsApiResponse.IsSuccessful)
+            {
+                return StatusCode(500, new { Message = "Doctor data updation failed" });
+            }
+            targetUser = "Doctor";
+        }
+
+        var properties = editUser.GetType().GetProperties();
+
+        foreach (var property in properties)
+        {
+            var updatedValue = property.GetValue(editUser);
+
+            if (updatedValue != null)
+            {
+                var staffTargetProperty = typeof(Staff).GetProperty(property.Name);
+                var authTargetProperty = typeof(Authentication).GetProperty(property.Name);
+
+                if (staffTargetProperty != null && staffTargetProperty.CanWrite && staffTargetProperty.PropertyType.IsAssignableFrom(property.PropertyType))
+                {
+                    staffTargetProperty.SetValue(staffExistence, updatedValue);
+                }
+                else if (authTargetProperty != null && authTargetProperty.CanWrite && authTargetProperty.PropertyType.IsAssignableFrom(property.PropertyType))
+                {
+                    authTargetProperty.SetValue(authenticationExistence, updatedValue);
+                }
+            }
+        }
+        await _context.SaveChangesAsync();
+        return Ok($"{targetUser} Profile updated successfully");
     }
 
 }

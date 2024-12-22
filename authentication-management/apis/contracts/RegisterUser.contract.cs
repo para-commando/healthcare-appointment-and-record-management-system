@@ -58,6 +58,7 @@ public record RegisterUser
 
 
   [Required(ErrorMessage = "Roles is required.")]
+  [MaxLength(100)]
   public required string Roles { get; set; }
 }
 public class ValidationRequest
