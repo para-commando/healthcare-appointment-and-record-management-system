@@ -70,7 +70,6 @@ public class HealthCheckController : ControllerBase
 
     [HttpGet]
     [Route("test")]
-    [Authorize(Policy = "tech")]
     public IActionResult tttt()
     {
         return Ok("sddddds");

@@ -14,6 +14,7 @@ using appointment_details.database.extensions;
 using Microsoft.EntityFrameworkCore;
 [ApiController]
 [Route("[controller]")]
+[Authorize(Policy = "alpha-doc")]
 public class AppointmentsController : ControllerBase
 {
     private readonly postgresHealthCareDbContext _context;
@@ -24,7 +25,7 @@ public class AppointmentsController : ControllerBase
     }
 
     [HttpPost("find-appointments")]
-    [AllowAnonymous]
+
     public async Task<IActionResult> FindAppointments([FromBody] SearchAppointments searchAppointments)
     {
         try
@@ -49,7 +50,7 @@ public class AppointmentsController : ControllerBase
     }
 
     [HttpPost("book-appointment")]
-    [AllowAnonymous]
+
     public async Task<IActionResult> BookAppointment([FromBody] AppointmentDetailsContract appointmentDetails)
     {
 
@@ -74,7 +75,7 @@ public class AppointmentsController : ControllerBase
 
             if (!patientDetailsApiResponse.IsSuccessful || !doctorDetailsApiResponse.IsSuccessful)
             {
-                 return StatusCode(500, new { Message = "No patient/doctor found for the given id, please check doctor/patient id" });
+                return StatusCode(500, new { Message = "No patient/doctor found for the given id, please check doctor/patient id" });
             }
 
             // 4. Map Appointment Entity and Save
@@ -96,7 +97,7 @@ public class AppointmentsController : ControllerBase
 
 
     [HttpPut("update-appointment/{id}")]
-    [AllowAnonymous]
+
     public async Task<IActionResult> UpdateAppointment(int id, [FromBody] AppointmentDetailsContract updateAppointmentDetails)
     {
 
@@ -126,7 +127,7 @@ public class AppointmentsController : ControllerBase
 
             if (!patientDetailsApiResponse.IsSuccessful || !doctorDetailsApiResponse.IsSuccessful)
             {
-                 return StatusCode(500, new { Message = "No patient/doctor found for the given id, please check doctor/patient id" });
+                return StatusCode(500, new { Message = "No patient/doctor found for the given id, please check doctor/patient id" });
             }
 
             var properties = updateAppointmentDetails.GetType().GetProperties();
@@ -162,7 +163,7 @@ public class AppointmentsController : ControllerBase
     }
 
     [HttpDelete("delete-appointment/{id}")]
-    [AllowAnonymous]
+
 
     public async Task<IActionResult> DeleteAppointment(int id)
     {

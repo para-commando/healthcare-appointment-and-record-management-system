@@ -10,6 +10,7 @@ using patient_management.apis.extensions;
 using patient_management.database.extensions;
 [ApiController]
 [Route("[controller]")]
+[Authorize(Policy = "alpha-doc")]
 public class PatientDetailsController : ControllerBase
 {
     private readonly postgresHealthCareDbContext _context;
@@ -20,7 +21,7 @@ public class PatientDetailsController : ControllerBase
     }
 
     // Create a new patient detail
-    [AllowAnonymous]
+
     [HttpPost("create-patient-details")]
     public async Task<IActionResult> CreatePatientDetails([FromBody] CreatePatientDetailsValidation patientDetails)
     {
@@ -34,7 +35,7 @@ public class PatientDetailsController : ControllerBase
     }
 
     [HttpPost("get-patient-details")]
-    [AllowAnonymous]
+
     public async Task<IActionResult> GetPatientDetailById([FromBody] SearchPatientDetails reqBody)
     {
         Console.WriteLine(reqBody);
@@ -51,7 +52,7 @@ public class PatientDetailsController : ControllerBase
 
 
     [HttpGet("get-all-patient-details")]
-    [AllowAnonymous]
+
     public async Task<IActionResult> GetAllPatientDetails()
     {
         var patients = await _context.PatientDetails.ToListAsync();
@@ -59,7 +60,7 @@ public class PatientDetailsController : ControllerBase
     }
 
     [HttpPut("update-patient-details/{id}")]
-    [AllowAnonymous]
+
 
     public async Task<IActionResult> UpdatePatientDetails(int id, [FromBody] UpdatePatientDetails updatedDetails)
     {
@@ -75,7 +76,7 @@ public class PatientDetailsController : ControllerBase
         {
             var updatedValue = property.GetValue(updatedDetails);
 
-           if (updatedValue != null)
+            if (updatedValue != null)
             {
                 // Ensure the type matches and the property is writable
                 var targetProperty = typeof(PatientDetails).GetProperty(property.Name);
@@ -97,7 +98,7 @@ public class PatientDetailsController : ControllerBase
 
     // Delete Patient Details by ID
     [HttpDelete("delete-patient-details/{id}")]
-    [AllowAnonymous]
+
 
     public async Task<IActionResult> DeletePatientDetails(int id)
     {

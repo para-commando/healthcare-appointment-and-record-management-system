@@ -12,6 +12,7 @@ using authentication_management.apis.services;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize(Policy = "alpha-doc")]
 public class AuthenticationController : ControllerBase
 {
     private readonly postgresHealthCareDbContext _context;

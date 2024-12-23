@@ -8,6 +8,7 @@ using staff_management.database.extensions;
 using Microsoft.EntityFrameworkCore;
 [ApiController]
 [Route("[controller]")]
+[Authorize(Policy = "alpha-doc")]
 public class DoctorDetailsController : ControllerBase
 {
     private readonly postgresHealthCareDbContext _context;
@@ -16,7 +17,7 @@ public class DoctorDetailsController : ControllerBase
     {
         _context = context;
     }
-    [AllowAnonymous]
+
     [HttpPost("create-doctor-details")]
     public async Task<IActionResult> CreatePatientDetails([FromBody] CreateDoctorDetailsValidation CreateDoctorDetailsValidation)
     {
@@ -28,7 +29,7 @@ public class DoctorDetailsController : ControllerBase
 
         return CreatedAtAction(nameof(CreatePatientDetails), new { id = doctorEntity.Id }, doctorEntity);
     }
-    [AllowAnonymous]
+
     [HttpPost("update-doctor-details/{id}")]
     public async Task<IActionResult> UpdatePatientDetails(int id, [FromBody] UpdateDoctorDetailsValidation updateDoctorDetailsValidation)
     {
@@ -64,7 +65,7 @@ public class DoctorDetailsController : ControllerBase
     }
 
     [HttpDelete("delete-doctor-details/{id}")]
-    [AllowAnonymous]
+
 
     public async Task<IActionResult> DeleteDoctorDetails(int id)
     {
@@ -81,7 +82,7 @@ public class DoctorDetailsController : ControllerBase
     }
 
     [HttpPost("get-doctor-details")]
-    [AllowAnonymous]
+
     public async Task<IActionResult> GetPatientDetailById([FromBody] SearchDoctorDetailsValidation reqBody)
     {
         Console.WriteLine(reqBody);
