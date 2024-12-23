@@ -93,21 +93,17 @@ public static class JwtExtensions
 
     builder.Services.AddAuthorization(options =>
               {
-                options.AddPolicy("tech", policy =>
-      {
-        policy.RequireRole("developer"); // Requires "developer" role
-        policy.RequireClaim("department", "IT"); // Requires the "department" claim with value "IT"
-        policy.RequireAssertion(context =>
-      {
-        // Custom logic to Check if the user's email ends with "@company.com"
-        return context.User.HasClaim(c =>
-        {
+                  options.AddPolicy("alpha-doc", policy =>
+               {
+                 policy.RequireRole("alpha");
+                 policy.RequireClaim("Designation", "Doctor");
 
-          return c.Type == "officeMailId" && c.Value.EndsWith("@company.com");
-        }
-          );
-      });
-      });
+               });
+                options.AddPolicy("alpha-sys-admin", policy =>
+                {
+                  policy.RequireRole("alpha");
+                  policy.RequireClaim("Designation", "System Administrator");
+                });
               });
 
     return builder;

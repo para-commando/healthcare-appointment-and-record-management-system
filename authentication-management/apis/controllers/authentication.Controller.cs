@@ -12,6 +12,7 @@ using authentication_management.apis.services;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize(Policy = "alpha-doc")]
 public class AuthenticationController : ControllerBase
 {
     private readonly postgresHealthCareDbContext _context;
@@ -119,7 +120,6 @@ public class AuthenticationController : ControllerBase
     }
     [HttpPost("signup")]
     [AllowAnonymous]
-
     public async Task<IActionResult> Register([FromBody] RegisterUser registerUser)
     {
         var staffExistence = await _context.Staff.FirstOrDefaultAsync(s => s.StaffUniqueId == registerUser.StaffUniqueId || s.Email == registerUser.Email || s.UniqueId == registerUser.NationalUniqueId || s.Contact == registerUser.Contact);
@@ -160,8 +160,7 @@ public class AuthenticationController : ControllerBase
     }
 
     [HttpPost("edit-user-profile")]
-    [AllowAnonymous]
-
+    [Authorize(Policy = "alpha-doc")]
     public async Task<IActionResult> EditUserProfile([FromBody] EditUser editUser)
     {
         var staffExistence = await _context.Staff.FirstOrDefaultAsync(s => s.StaffUniqueId == editUser.StaffUniqueId);

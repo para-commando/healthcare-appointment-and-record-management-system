@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
-[AllowAnonymous]
 [Route("[controller]")]
+[Authorize(Policy = "alpha-doc")]
+
 public class PdfController : ControllerBase
 {
     [HttpPost("generate")]

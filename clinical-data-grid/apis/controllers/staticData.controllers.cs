@@ -10,6 +10,7 @@ using System.Text.Json;
 namespace clinical_data_grid.controllers;
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Policy = "alpha-doc")]
 public class StaticDataController : ControllerBase
 {
     private readonly postgresHealthCareDbContext _dbContext;

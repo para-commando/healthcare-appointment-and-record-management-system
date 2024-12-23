@@ -45,7 +45,7 @@ public class AuthService
 
     ci.AddClaim(new Claim("id", user.StaffUniqueId.ToString()));
     ci.AddClaim(new Claim("Username", user.Username));
-    ci.AddClaim(new Claim("Designation", user.Department));
+    ci.AddClaim(new Claim("Designation", user.Designation));
     foreach (var role in user.Roles)
     {
       ci.AddClaim(new Claim("roles", role));
