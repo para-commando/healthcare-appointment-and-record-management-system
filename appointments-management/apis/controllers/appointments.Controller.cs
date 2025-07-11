@@ -62,10 +62,12 @@ public class AppointmentsController : ControllerBase
 
             var patientDetailsApiRequest = new RestRequest("PatientDetails/get-patient-details", Method.Post)
                 .AddHeader("Content-Type", "application/json")
+                .AddHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWxwaGEiLCJEZXNpZ25hdGlvbiI6IkRvY3RvciIsIlBvbGljeSI6ImFscGhhLWRvYyIsImV4cCI6MTkzNTY4OTYwMH0.bfdTj4wwn_x_gubENB5xI1FlO8fkSUE3dQdEzSPePAQ")
                 .AddJsonBody(new { id = appointmentDetails.PatientId });
 
             var doctorDetailsApiRequest = new RestRequest("DoctorDetails/get-doctor-details", Method.Post)
                           .AddHeader("Content-Type", "application/json")
+                          .AddHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWxwaGEiLCJEZXNpZ25hdGlvbiI6IkRvY3RvciIsIlBvbGljeSI6ImFscGhhLWRvYyIsImV4cCI6MTkzNTY4OTYwMH0.bfdTj4wwn_x_gubENB5xI1FlO8fkSUE3dQdEzSPePAQ")
                           .AddJsonBody(new { id = appointmentDetails.DoctorId });
 
             var patientDetailsApiResponse = await patientApiClient.ExecuteAsync(patientDetailsApiRequest);
@@ -94,7 +96,7 @@ public class AppointmentsController : ControllerBase
         }
 
     }
-
+ 
 
     [HttpPut("update-appointment/{id}")]
 

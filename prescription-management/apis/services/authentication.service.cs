@@ -19,25 +19,38 @@ public class AuthService
 
   public string Create(User user)
   {
-    string ConnectionString = _configuration["jwtVariables:privateKey"];
-    Console.WriteLine(ConnectionString);
-    var handler = new JwtSecurityTokenHandler();
-
-    var privateKey = Encoding.ASCII.GetBytes(ConnectionString); // Replace with your private key. Ensure it's a valid Base64 encoded string.
-
-    var credentials = new SigningCredentials(
-        new SymmetricSecurityKey(privateKey),
-        SecurityAlgorithms.HmacSha256);
-
-    var tokenDescriptor = new SecurityTokenDescriptor
+    try
     {
-      SigningCredentials = credentials,
-      Expires = DateTime.UtcNow.AddHours(1),
-      Subject = GenerateClaims(user)
-    };
+        string ConnectionString = _configuration["jwtVariables:privateKey"];
 
-    var token = handler.CreateToken(tokenDescriptor);
-    return handler.WriteToken(token);
+        string privateKeyString = _configuration["jwtVariables:privateKey"];
+        if (string.IsNullOrEmpty(privateKeyString))
+            throw new Exception("JWT private key is not configured. Please set 'jwtVariables:privateKey' in your appsettings.json or environment variables.");
+
+        var handler = new JwtSecurityTokenHandler();
+
+        var privateKey = Encoding.ASCII.GetBytes(ConnectionString); // Replace with your private key. Ensure it's a valid Base64 encoded string.
+
+        var credentials = new SigningCredentials(
+            new SymmetricSecurityKey(privateKey),
+            SecurityAlgorithms.HmacSha256);
+
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            SigningCredentials = credentials,
+            Expires = DateTime.UtcNow.AddHours(1),
+            Subject = GenerateClaims(user)
+        };
+
+        var token = handler.CreateToken(tokenDescriptor);
+        var ss = handler.WriteToken(token);
+        return ss;
+    }
+    catch (Exception ex)
+    {
+        // You can log the exception here if you have a logger
+        throw new Exception("An error occurred while creating the JWT token.", ex);
+    }
   }
   private static ClaimsIdentity GenerateClaims(User user)
   {

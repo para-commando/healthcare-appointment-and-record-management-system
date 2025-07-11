@@ -1,5 +1,6 @@
 using clinical_data_grid.database.models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using clinical_data_grid.database.extensions;
 namespace clinical_data_grid.database;
 public class postgresHealthCareDbContext : DbContext

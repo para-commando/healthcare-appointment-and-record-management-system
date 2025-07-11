@@ -54,18 +54,29 @@ public class HealthCheckController : ControllerBase
 
     [HttpGet]
     [Route("get-token")]
+
     public string GetToken(AuthService service)
     {
-        var user = new User(
-            1,
-            "bruno.bernardes",
-            "Bruno Bernardes",
-            "bruno@company.com",
-            "q1w2e3r4t5",
-            "IT",
-            ["developer"]);
 
-        return service.Create(user);
+        try
+        {
+            var user = new User(
+                1,
+                "bruno.bernardes",
+                "Bruno Bernardes",
+                "bruno@company.com",
+                "q1w2e3r4t5",
+                "IT",
+                ["developer"]);
+
+            var token = service.Create(user);
+            return  token ; // or return Content(token, "text/plain");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred while generating the token.");
+            return"An error occurred while generating the token." ;
+        }
     }
 
     [HttpGet]

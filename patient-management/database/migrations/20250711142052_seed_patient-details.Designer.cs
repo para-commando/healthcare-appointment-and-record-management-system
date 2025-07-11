@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using staff_management.database;
+using patient_management.database;
 
 #nullable disable
 
-namespace staffmanagement.database.migrations
+namespace prescription_management.database.migrations
 {
     [DbContext(typeof(postgresHealthCareDbContext))]
-    [Migration("20241218183330_doctor-details-table")]
-    partial class doctordetailstable
+    [Migration("20250711142052_seed_patient-details")]
+    partial class seed_patientdetails
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace staffmanagement.database.migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("staff_management.database.models.DoctorDetails", b =>
+            modelBuilder.Entity("patient_management.database.models.PatientDetails", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,43 +34,41 @@ namespace staffmanagement.database.migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("DoctorAddress")
+                    b.Property<string>("PatientAddress")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)")
-                        .HasColumnName("doctor_address");
+                        .HasColumnName("patient_address");
 
-                    b.Property<string>("DoctorContact")
+                    b.Property<string>("PatientContact")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)")
-                        .HasColumnName("doctor_contact");
+                        .HasColumnName("patient_contact");
 
-                    b.Property<DateOnly>("DoctorDateOfJoining")
+                    b.Property<DateOnly>("PatientLatestDateOfVisit")
                         .HasColumnType("date")
-                        .HasColumnName("doctor_registration_date");
+                        .HasColumnName("patient_latest_date_of_visit");
 
-                    b.Property<string>("DoctorName")
+                    b.Property<string>("PatientName")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)")
-                        .HasColumnName("doctor_name");
+                        .HasColumnName("patient_name");
 
-                    b.Property<string>("DoctorSpecialization")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)")
-                        .HasColumnName("doctor_specialization");
+                    b.Property<DateOnly>("PatientRegistrationDate")
+                        .HasColumnType("date")
+                        .HasColumnName("patient_registration_date");
 
-                    b.Property<string>("DoctorUniqueId")
+                    b.Property<string>("PatientUniqueId")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)")
-                        .HasColumnName("doctor_unique_id");
+                        .HasColumnName("patient_unique_id");
 
                     b.HasKey("Id");
 
-                    b.ToTable("doctor-details");
+                    b.ToTable("patient-details");
                 });
 #pragma warning restore 612, 618
         }

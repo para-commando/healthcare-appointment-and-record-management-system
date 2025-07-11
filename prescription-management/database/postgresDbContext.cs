@@ -7,7 +7,7 @@ public class postgresHealthCareDbContext : DbContext
 
     public postgresHealthCareDbContext(DbContextOptions<postgresHealthCareDbContext> options, ILogger<postgresHealthCareDbContext> logger)
         : base(options) { }
-    public DbSet<ClinicalHealthStaticData> ClinicalHealthStaticData { get; set; }
+   // public DbSet<ClinicalHealthStaticData> ClinicalHealthStaticData { get; set; }
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

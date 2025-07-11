@@ -8,7 +8,6 @@ using staff_management.database.extensions;
 using Microsoft.EntityFrameworkCore;
 [ApiController]
 [Route("[controller]")]
-[Authorize(Policy = "alpha-doc")]
 public class DoctorDetailsController : ControllerBase
 {
     private readonly postgresHealthCareDbContext _context;

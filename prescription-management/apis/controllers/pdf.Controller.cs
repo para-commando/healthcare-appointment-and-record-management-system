@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize(Policy = "alpha-doc")]
-public class PdfController : ControllerBase
+ public class PdfController : ControllerBase
 {
 
     [HttpPost("generate-prescription-pdf")]

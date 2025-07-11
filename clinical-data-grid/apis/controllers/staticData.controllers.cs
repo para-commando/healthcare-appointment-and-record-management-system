@@ -5,6 +5,7 @@ using clinical_data_grid.database.models;
 using clinical_data_grid.apis.services;
 using clinical_data_grid.database.extensions;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Authorization;
 using StackExchange.Redis;
 using System.Text.Json;
 namespace clinical_data_grid.controllers;
