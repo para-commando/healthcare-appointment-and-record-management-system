@@ -20,7 +20,7 @@ public record AppointmentDetailsContract
   public DateTime AppointmentBookedOn { get; init; }
 
   [Required(ErrorMessage = "AppointmentStatus is required.")]
-  [RegularExpression("^(Scheduled|Cancelled|PatientAbsent|DoctorOnLeave|Completed|DoctorArrivingLate|PatientArrivingLate)$", ErrorMessage = "Gender must be 'Scheduled', 'Cancelled', 'PatientAbsent', 'DoctorOnLeave','Completed','DoctorArrivingLate' or 'PatientArrivingLate'")]
+  [RegularExpression("^(Scheduled|Cancelled|PatientAbsent|DoctorOnLeave|Completed|DoctorArrivingLate|PatientArrivingLate)$", ErrorMessage = "AppointmentStatus must be 'Scheduled', 'Cancelled', 'PatientAbsent', 'DoctorOnLeave','Completed','DoctorArrivingLate' or 'PatientArrivingLate'")]
   public string AppointmentStatus { get; init; }
 
 }

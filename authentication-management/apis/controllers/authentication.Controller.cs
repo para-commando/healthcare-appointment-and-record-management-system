@@ -1,14 +1,14 @@
-using Microsoft.AspNetCore.Mvc;
-using authentication_management.database;
-using Microsoft.AspNetCore.Authorization;
+using System.Security.Cryptography;
+using System.Text;
 using authentication_management.apis.extensions;
+using authentication_management.apis.services;
+using authentication_management.database;
 using authentication_management.database.contracts;
 using authentication_management.database.models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
-using System.Text;
-using System.Security.Cryptography;
-using authentication_management.apis.services;
 
 [ApiController]
 [Route("[controller]")]
@@ -24,15 +24,17 @@ public class AuthenticationController : ControllerBase
 
     [HttpPost("login")]
     [AllowAnonymous]
-
     public async Task<IActionResult> Login([FromBody] LoginUser payload, AuthService service)
     {
-
         try
         {
-            var authenticationExistence = await _context.Authentication.FirstOrDefaultAsync(s => s.UserName == payload.UserName);
+            var authenticationExistence = await _context.Authentication.FirstOrDefaultAsync(s =>
+                s.UserName == payload.UserName
+            );
 
-            var staffExistence = await _context.Staff.FirstOrDefaultAsync(s => s.StaffUniqueId == payload.StaffUniqueId);
+            var staffExistence = await _context.Staff.FirstOrDefaultAsync(s =>
+                s.StaffUniqueId == payload.StaffUniqueId
+            );
 
             if (authenticationExistence == null || staffExistence == null)
             {
@@ -52,13 +54,16 @@ public class AuthenticationController : ControllerBase
             {
                 return BadRequest(new { message = "Invalid Username or Password" });
             }
-            var roles = authenticationExistence.Roles.Contains(',') ? authenticationExistence.Roles.Split(',') : new string[] { authenticationExistence.Roles };
+            var roles = authenticationExistence.Roles.Contains(',')
+                ? authenticationExistence.Roles.Split(',')
+                : new string[] { authenticationExistence.Roles };
 
             var user = new User(
-                       staffExistence.StaffUniqueId,
-                       authenticationExistence.UserName,
-                       staffExistence.Designation,
-                      roles);
+                staffExistence.StaffUniqueId,
+                authenticationExistence.UserName,
+                staffExistence.Designation,
+                roles
+            );
 
             return Ok(service.Create(user));
         }
@@ -67,7 +72,6 @@ public class AuthenticationController : ControllerBase
             return BadRequest(exception.Message);
             throw;
         }
-
     }
 
     [HttpPost("check-field-authenticity")]
@@ -84,7 +88,6 @@ public class AuthenticationController : ControllerBase
         // Dynamically validate based on the field
         switch (request.Field.ToLower())
         {
-
             case "userName":
                 exists = await _context.Authentication.AnyAsync(s => s.UserName == request.Value);
                 break;
@@ -110,20 +113,32 @@ public class AuthenticationController : ControllerBase
         }
 
         // Return validation result
-        return Ok(new
-        {
-            Field = request.Field,
-            Value = request.Value,
-            Exists = exists,
-            Message = exists ? $"{request.Field} already exists." : $"{request.Field} is available."
-        });
+        return Ok(
+            new
+            {
+                Field = request.Field,
+                Value = request.Value,
+                Exists = exists,
+                Message = exists
+                    ? $"{request.Field} already exists."
+                    : $"{request.Field} is available.",
+            }
+        );
     }
+
     [HttpPost("signup")]
     [AllowAnonymous]
     public async Task<IActionResult> Register([FromBody] RegisterUser registerUser)
     {
-        var staffExistence = await _context.Staff.FirstOrDefaultAsync(s => s.StaffUniqueId == registerUser.StaffUniqueId || s.Email == registerUser.Email || s.UniqueId == registerUser.NationalUniqueId || s.Contact == registerUser.Contact);
-        var authenticationExistence = await _context.Authentication.FirstOrDefaultAsync(s => s.UserName == registerUser.UserName);
+        var staffExistence = await _context.Staff.FirstOrDefaultAsync(s =>
+            s.StaffUniqueId == registerUser.StaffUniqueId
+            || s.Email == registerUser.Email
+            || s.UniqueId == registerUser.NationalUniqueId
+            || s.Contact == registerUser.Contact
+        );
+        var authenticationExistence = await _context.Authentication.FirstOrDefaultAsync(s =>
+            s.UserName == registerUser.UserName
+        );
         if (staffExistence != null || authenticationExistence != null)
         {
             return BadRequest(new { message = "data already exists." });
@@ -132,23 +147,33 @@ public class AuthenticationController : ControllerBase
         if (registerUser.IsDoctor == true)
         {
             var doctorApiClient = new RestClient("http://localhost:5008");
-            var doctorDetailsApiRequest = new RestRequest("DoctorDetails/create-doctor-details", Method.Post)
-                                   .AddHeader("Content-Type", "application/json")
-                                   .AddJsonBody(new
-                                   {
-                                       DoctorName = registerUser.FullName,
-                                       DoctorSpecialization = registerUser.Specialization,
-                                       DoctorContact = registerUser.Contact,
-                                       DoctorAddress = registerUser.Address,
-                                       DoctorUniqueId = registerUser.NationalUniqueId,
-                                       DoctorDateOfJoining = registerUser.DateOfJoining
-                                   });
-            var doctorDetailsApiResponse = await doctorApiClient.ExecuteAsync(doctorDetailsApiRequest);
+            var doctorDetailsApiRequest = new RestRequest(
+                "DoctorDetails/create-doctor-details",
+                Method.Post
+            )
+                .AddHeader("Content-Type", "application/json")
+                .AddHeader(
+                    "Authorization",
+                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWxwaGEiLCJEZXNpZ25hdGlvbiI6IkRvY3RvciIsIlBvbGljeSI6ImFscGhhLWRvYyIsImV4cCI6MTkzNTY4OTYwMH0.bfdTj4wwn_x_gubENB5xI1FlO8fkSUE3dQdEzSPePAQ"
+                )
+                .AddJsonBody(
+                    new
+                    {
+                        DoctorName = registerUser.FullName,
+                        DoctorSpecialization = registerUser.Specialization,
+                        DoctorContact = registerUser.Contact,
+                        DoctorAddress = registerUser.Address,
+                        DoctorUniqueId = registerUser.NationalUniqueId,
+                        DoctorDateOfJoining = registerUser.DateOfJoining,
+                    }
+                );
+            var doctorDetailsApiResponse = await doctorApiClient.ExecuteAsync(
+                doctorDetailsApiRequest
+            );
             if (!doctorDetailsApiResponse.IsSuccessful)
             {
                 return StatusCode(500, new { Message = "Doctor data creation failed" });
             }
-
         }
 
         var staff = registerUser.ReturnAnStaffsObject();
@@ -163,8 +188,12 @@ public class AuthenticationController : ControllerBase
     [Authorize(Policy = "alpha-doc")]
     public async Task<IActionResult> EditUserProfile([FromBody] EditUser editUser)
     {
-        var staffExistence = await _context.Staff.FirstOrDefaultAsync(s => s.StaffUniqueId == editUser.StaffUniqueId);
-        var authenticationExistence = await _context.Authentication.FirstOrDefaultAsync(s => s.UserName == editUser.UserName);
+        var staffExistence = await _context.Staff.FirstOrDefaultAsync(s =>
+            s.StaffUniqueId == editUser.StaffUniqueId
+        );
+        var authenticationExistence = await _context.Authentication.FirstOrDefaultAsync(s =>
+            s.UserName == editUser.UserName
+        );
         if (staffExistence == null || authenticationExistence == null)
         {
             return BadRequest(new { message = "User not found." });
@@ -172,20 +201,30 @@ public class AuthenticationController : ControllerBase
         var targetUser = "User";
         if (editUser.IsDoctor == true && editUser.DoctorId > 0)
         {
-
             var doctorApiClient = new RestClient("http://localhost:5008");
-            var doctorDetailsApiRequest = new RestRequest($"DoctorDetails/update-doctor-details/{editUser.DoctorId}", Method.Post)
-                                   .AddHeader("Content-Type", "application/json")
-                                   .AddJsonBody(new
-                                   {
-                                       DoctorName = editUser?.FullName ?? null,
-                                       DoctorSpecialization = editUser?.Specialization ?? null,
-                                       DoctorContact = editUser?.Contact ?? null,
-                                       DoctorAddress = editUser?.Address ?? null,
-                                       DoctorUniqueId = editUser?.NationalUniqueId ?? null,
-                                       DoctorDateOfJoining = editUser?.DateOfJoining ?? null
-                                   });
-            var doctorDetailsApiResponse = await doctorApiClient.ExecuteAsync(doctorDetailsApiRequest);
+            var doctorDetailsApiRequest = new RestRequest(
+                $"DoctorDetails/update-doctor-details/{editUser.DoctorId}",
+                Method.Post
+            )
+                .AddHeader("Content-Type", "application/json")
+                .AddHeader(
+                    "Authorization",
+                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYWxwaGEiLCJEZXNpZ25hdGlvbiI6IkRvY3RvciIsIlBvbGljeSI6ImFscGhhLWRvYyIsImV4cCI6MTkzNTY4OTYwMH0.bfdTj4wwn_x_gubENB5xI1FlO8fkSUE3dQdEzSPePAQ"
+                )
+                .AddJsonBody(
+                    new
+                    {
+                        DoctorName = editUser?.FullName ?? null,
+                        DoctorSpecialization = editUser?.Specialization ?? null,
+                        DoctorContact = editUser?.Contact ?? null,
+                        DoctorAddress = editUser?.Address ?? null,
+                        DoctorUniqueId = editUser?.NationalUniqueId ?? null,
+                        DoctorDateOfJoining = editUser?.DateOfJoining ?? null,
+                    }
+                );
+            var doctorDetailsApiResponse = await doctorApiClient.ExecuteAsync(
+                doctorDetailsApiRequest
+            );
             if (!doctorDetailsApiResponse.IsSuccessful)
             {
                 return StatusCode(500, new { Message = "Doctor data updation failed" });
@@ -204,11 +243,19 @@ public class AuthenticationController : ControllerBase
                 var staffTargetProperty = typeof(Staff).GetProperty(property.Name);
                 var authTargetProperty = typeof(Authentication).GetProperty(property.Name);
 
-                if (staffTargetProperty != null && staffTargetProperty.CanWrite && staffTargetProperty.PropertyType.IsAssignableFrom(property.PropertyType))
+                if (
+                    staffTargetProperty != null
+                    && staffTargetProperty.CanWrite
+                    && staffTargetProperty.PropertyType.IsAssignableFrom(property.PropertyType)
+                )
                 {
                     staffTargetProperty.SetValue(staffExistence, updatedValue);
                 }
-                else if (authTargetProperty != null && authTargetProperty.CanWrite && authTargetProperty.PropertyType.IsAssignableFrom(property.PropertyType))
+                else if (
+                    authTargetProperty != null
+                    && authTargetProperty.CanWrite
+                    && authTargetProperty.PropertyType.IsAssignableFrom(property.PropertyType)
+                )
                 {
                     authTargetProperty.SetValue(authenticationExistence, updatedValue);
                 }
@@ -217,5 +264,4 @@ public class AuthenticationController : ControllerBase
         await _context.SaveChangesAsync();
         return Ok($"{targetUser} Profile updated successfully");
     }
-
 }

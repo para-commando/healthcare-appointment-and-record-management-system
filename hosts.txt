@@ -8,12 +8,12 @@ staff
 http://localhost:5008/index.html
 
 prescription
-http://localhost:5008/index.html
+http://localhost:5002/index.html
 
 patient 
 http://localhost:5004/index.html
 
 clinical
-http://localhost:5004/index.html
+http://localhost:5001/index.html
 
  
